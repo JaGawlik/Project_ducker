@@ -7,7 +7,7 @@ void Game::initVariables()
 	this->endGame = false;
 	this->mouseHeld = false;
 	this->timeIsOver = false;
-	this->gameTime = 10;
+	this->gameTime = 20;
 	this->counter = 0;
 
 
