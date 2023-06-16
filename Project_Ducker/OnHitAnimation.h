@@ -18,13 +18,27 @@ class OnHitAnimation
 
 	sf::Vector2f position;
 
+	bool endScreen;
+	float limit;
+
+	void center();
+
 public:
-	OnHitAnimation(sf::Vector2f);
+	OnHitAnimation(sf::VideoMode,sf::Vector2f);
 	~OnHitAnimation();
 
-	void updateOnHit();
+	void updateOnHit(std::vector <OnHitAnimation*>);
 
 	void initOnHit();
 	void renderOnHitAnim(sf::RenderTarget& target);
+
+	bool getEndScreen();
+
+	void move(sf::Vector2f);
+
+	const sf::FloatRect getBounds() const;
+
+
+
 };
 

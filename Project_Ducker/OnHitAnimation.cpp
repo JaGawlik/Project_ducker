@@ -1,11 +1,10 @@
 #include "OnHitAnimation.h"
 
-OnHitAnimation::OnHitAnimation(sf::Vector2f pos)
+OnHitAnimation::OnHitAnimation(sf::VideoMode vMode ,sf::Vector2f pos)
 {
+	limit = vMode.height;
 	this->position = pos;
 	this->initOnHit();
-	this->updateOnHit();
-
 }
 
 OnHitAnimation::~OnHitAnimation()
@@ -13,12 +12,20 @@ OnHitAnimation::~OnHitAnimation()
 
 }
 
-void OnHitAnimation::updateOnHit()
+void OnHitAnimation::updateOnHit(std::vector <OnHitAnimation*> onHitVector)
 {
-	for (int i = 0; i < 4; i++)
+
+	if ((this->onHitSprite.getGlobalBounds().top - this->onHitSprite.getGlobalBounds().height) >= 0.f)
 	{
-		this->onHitSprite.move(0, 2.f);
+		this->onHitSprite.move(0, -10.f);
+		this->endScreen = false;
 	}
+
+	else
+	{
+		this->endScreen = true;
+	}
+
 }
 
 void OnHitAnimation::initOnHit()
@@ -34,6 +41,7 @@ void OnHitAnimation::initOnHit()
 	this->onHitSprite.setTexture(this->onHitTexture);
 
 	this->onHitSprite.setPosition(this->position);
+	this->center();
 }
 
 
@@ -41,3 +49,25 @@ void OnHitAnimation::renderOnHitAnim(sf::RenderTarget& target)
 {
 	target.draw(this->onHitSprite);
 }
+
+bool OnHitAnimation::getEndScreen()
+{
+	return this->endScreen;
+}
+
+void OnHitAnimation::move(sf::Vector2f move)
+{
+	this->onHitSprite.move(move.x, move.y);
+}
+
+const sf::FloatRect OnHitAnimation::getBounds() const
+{
+
+	return this->onHitSprite.getGlobalBounds();
+}
+
+void OnHitAnimation::center()
+{
+	this->onHitSprite.setPosition(this->onHitSprite.getGlobalBounds().left - (this->onHitSprite.getGlobalBounds().width * (1.f / 2.f)), this->onHitSprite.getGlobalBounds().top - (this->onHitSprite.getGlobalBounds().height * (1.f / 2.f)));
+}
+

@@ -83,10 +83,10 @@ Game::~Game()
 {
 	delete this->window;
 	delete this->target;
-	for (auto * onHit: this->onHitVector)
+	/*for (auto * onHit: this->onHitVector)
 	{
 		delete onHit;
-	}
+	}*/
 }
 
 
@@ -145,6 +145,7 @@ void Game::deleteTargets()
 		{
 			if ((this->targets[i]->getPosition().x - this->targets[i]->getBounds().width) > this->window->getSize().x)
 			{
+				delete this->targets.at(i);
 				this->targets.erase(this->targets.begin() + i);
 			}
 		}
@@ -153,6 +154,7 @@ void Game::deleteTargets()
 		{
 			if (this->targets[i]->getPosition().x < (0.f - this->targets[i]->getBounds().width))
 			{
+				delete this->targets.at(i);
 				this->targets.erase(this->targets.begin() + i);
 			}
 		}
@@ -174,8 +176,9 @@ void Game::deleteTargets()
 					{
 						deleted = true;
 
-						//this->onHitVector.push_back(new OnHitAnimation(this->targets[i]->getPosition()));
+						this->onHitVector.push_back(new OnHitAnimation(this->videoMode,sf::Vector2f(this->targets[i]->getBounds().left + this->targets[i]->getBounds().width /2.f, this->targets[i]->getBounds().top + this->targets[i]->getBounds().height / 2.f)));
 						
+												
 						/*this->onHitAnima(this->targets[i].)*/
 
 						//new OnHitAnimation(this->targets[i]->getPosition());
@@ -250,14 +253,14 @@ void Game::initCursor()
 	/*sf::Cursor crosshair;
 	sf::Texture crosshairTexture;*/
 
-	if (!this->crosshairTexture.loadFromFile("Textures/crosshair.png"))
+	if (!this->crosshairTexture.loadFromFile("Textures/crosshair01.png"))
 	{
 		std::cout << "ERROR::TEXTURE NOT LOADED::CROSSHAIR";
 	}
 
 	else
 	{
-		if(this->crosshair.loadFromPixels(crosshairTexture.getPixelsPtr(), crosshairTexture.getSize(), { 64 , 64 }))
+		if(this->crosshair.loadFromPixels(crosshairTexture.getPixelsPtr(), crosshairTexture.getSize(), { 50 , 50 }))
 		{
 			window->setMouseCursor(crosshair);
 		}
@@ -308,12 +311,16 @@ void Game::update()
 
 	this->updateTargets();
 
+	this->updateOnHit();
+	
+
 	/*for (auto *t : this->targets)
 	{
 		t->updateTarget();
 	}*/
 	//std::cout << this->targets.size() << "\n";
 	//std::cout << this->points << "\n";
+
 
 	this->deleteTargets();
 }
@@ -342,6 +349,10 @@ void Game::render()
 	}
 
 	this->window->display();
+
+	std::cout << this->onHitVector.size() << "\n";
+	//std::cout << this->targets.size() << "\n";
+
 }
 
 bool Game::gameOver()
@@ -352,6 +363,41 @@ bool Game::gameOver()
 void Game::initOnHit()
 {
 	this->onHitTexture.loadFromFile("Textures/1.png");
+}
+
+void Game::updateOnHit()
+{
+	for (int i = 0; i < this->onHitVector.size(); i++)
+	{
+		if (this->onHitVector[i]->getBounds().top + this->onHitVector[i]->getBounds().height >= 0.f)
+		{
+			this->onHitVector[i]->move(sf::Vector2f(0.f, -10.f));
+		}
+
+		else
+		{
+			delete this->onHitVector.at(i);
+			this->onHitVector.erase(this->onHitVector.begin() + i);
+			break;
+		}
+
+	}
+
+	
+	
+	
+	/*if ((this->onHitSprite.getGlobalBounds().top - this->onHitSprite.getGlobalBounds().height) >= 0.f)
+	{
+		this->onHitSprite.move(0, -10.f);
+		this->endScreen = false;
+	}
+
+	else
+	{
+		this->endScreen = true;
+	}*/
+
+	
 }
 
 

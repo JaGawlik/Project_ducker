@@ -102,26 +102,16 @@ public:
 
 	void initCursor();
 
-
 	void initTargets();
-
 	void deleteTargets();
-
 	void updateTargets();
-
-	void update();
-	void render();
 
 	bool gameOver();
 
 	void initOnHit();
+	void updateOnHit();
 
-	//sf::Sprite onHitAnima();
-
-	
-
-	//void onhitAnimation(sf::Vector2f);
-	//void rendetOnHit(sf::RenderTarget& target);
-	
+	void update();
+	void render();
 };
 
