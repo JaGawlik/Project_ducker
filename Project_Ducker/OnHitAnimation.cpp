@@ -6,12 +6,11 @@ OnHitAnimation::OnHitAnimation(sf::Vector2f pos)
 	this->initOnHit();
 	this->updateOnHit();
 
-
 }
-
 
 OnHitAnimation::~OnHitAnimation()
 {
+
 }
 
 void OnHitAnimation::updateOnHit()
@@ -21,13 +20,6 @@ void OnHitAnimation::updateOnHit()
 		this->onHitSprite.move(0, 2.f);
 	}
 }
-
-
-void OnHitAnimation::onHitAnimation(sf::Vector2f pos)
-{
-	this->onHitSprite.setPosition(pos);
-}
-
 
 void OnHitAnimation::initOnHit()
 {
@@ -43,6 +35,7 @@ void OnHitAnimation::initOnHit()
 
 	this->onHitSprite.setPosition(this->position);
 }
+
 
 void OnHitAnimation::renderOnHitAnim(sf::RenderTarget& target)
 {

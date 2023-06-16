@@ -24,7 +24,6 @@ public:
 
 	void updateOnHit();
 
-	void onHitAnimation(sf::Vector2f);
 	void initOnHit();
 	void renderOnHitAnim(sf::RenderTarget& target);
 };

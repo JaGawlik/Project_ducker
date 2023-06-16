@@ -83,6 +83,10 @@ Game::~Game()
 {
 	delete this->window;
 	delete this->target;
+	for (auto * onHit: this->onHitVector)
+	{
+		delete onHit;
+	}
 }
 
 
@@ -169,18 +173,16 @@ void Game::deleteTargets()
 					if (this->targets[i]->getBounds().contains(this->mousePos2f))
 					{
 						deleted = true;
-						
 
+						//this->onHitVector.push_back(new OnHitAnimation(this->targets[i]->getPosition()));
+						
 						/*this->onHitAnima(this->targets[i].)*/
 
 						//new OnHitAnimation(this->targets[i]->getPosition());
-						
-						
+												
 						//this->onHitAnimation(this->targets[i]->getPosition());
 						/*this->onhitAnimation(this->targets[i]->getPosition());*/
-
-						
-						
+															
 						this->targets.erase(this->targets.begin() + i);
 						
 						this->points += 3;
@@ -197,7 +199,6 @@ void Game::deleteTargets()
 	}
 }
 
-
 //void Game::mainTimer()
 //{
 //	sf::Time elapsed = clock.getElapsedTime();
@@ -210,8 +211,6 @@ void Game::deleteTargets()
 //		std::cout << "Koniec czasu \n";
 //	}
 //}
-
-
 
 void Game::updateTimer()
 {
@@ -336,6 +335,11 @@ void Game::render()
 	this->renderText(*this->window);
 
 	this->renderTime(*this->window);
+
+	for (auto *i: this->onHitVector)
+	{
+		i->renderOnHitAnim(*this->window);
+	}
 
 	this->window->display();
 }

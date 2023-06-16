@@ -64,6 +64,7 @@ class Game
 
 	//On Hit
 	sf::Texture onHitTexture;
+	std::vector <OnHitAnimation*> onHitVector;
 	
 	/*sf::Text onHitText;
 	sf::Font onHitFont;*/
@@ -115,7 +116,7 @@ public:
 
 	void initOnHit();
 
-	sf::Sprite onHitAnima();
+	//sf::Sprite onHitAnima();
 
 	
 
