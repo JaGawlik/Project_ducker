@@ -21,6 +21,9 @@ class OnHitAnimation
 	bool endScreen;
 	float limit;
 
+	sf::Clock animationTimer;
+	sf::IntRect currentFrame;
+
 	void center();
 
 public:
@@ -34,9 +37,14 @@ public:
 
 	bool getEndScreen();
 
+	void initSprite();
+	void updateAnimation();
+
 	void move(sf::Vector2f);
 
 	const sf::FloatRect getBounds() const;
+
+
 
 
 

@@ -29,6 +29,7 @@ class Target
 	void initAnimation();
 
 	//int points;
+	float speed;
 	int typeTarget;
 	float targetSpawnTimer;
 	float targetLastSpawn;

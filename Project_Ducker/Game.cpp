@@ -175,9 +175,9 @@ void Game::deleteTargets()
 					if (this->targets[i]->getBounds().contains(this->mousePos2f))
 					{
 						deleted = true;
-
-						this->onHitVector.push_back(new OnHitAnimation(this->videoMode,sf::Vector2f(this->targets[i]->getBounds().left + this->targets[i]->getBounds().width /2.f, this->targets[i]->getBounds().top + this->targets[i]->getBounds().height / 2.f)));
 						
+						this->onHitVector.push_back(new OnHitAnimation(this->videoMode,sf::Vector2f(this->targets[i]->getBounds().left + this->targets[i]->getBounds().width /2.f, this->targets[i]->getBounds().top + this->targets[i]->getBounds().height / 2.f)));
+						delete this->targets.at(i);
 												
 						/*this->onHitAnima(this->targets[i].)*/
 
@@ -187,7 +187,7 @@ void Game::deleteTargets()
 						/*this->onhitAnimation(this->targets[i]->getPosition());*/
 															
 						this->targets.erase(this->targets.begin() + i);
-						
+					
 						this->points += 3;
 					}
 
@@ -350,7 +350,7 @@ void Game::render()
 
 	this->window->display();
 
-	std::cout << this->onHitVector.size() << "\n";
+	//std::cout << this->onHitVector.size() << "\n";
 	//std::cout << this->targets.size() << "\n";
 
 }
@@ -372,6 +372,7 @@ void Game::updateOnHit()
 		if (this->onHitVector[i]->getBounds().top + this->onHitVector[i]->getBounds().height >= 0.f)
 		{
 			this->onHitVector[i]->move(sf::Vector2f(0.f, -10.f));
+			this->onHitVector[i]->updateAnimation();
 		}
 
 		else
@@ -380,6 +381,7 @@ void Game::updateOnHit()
 			this->onHitVector.erase(this->onHitVector.begin() + i);
 			break;
 		}
+	
 
 	}
 

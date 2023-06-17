@@ -14,6 +14,7 @@ Target::Target(sf::VideoMode vMode)
 	this->initSprite();
 	
 	this->spawnTarget();
+	this->speed = 1.f;
 
 	//this->targetSide();
 
@@ -86,13 +87,13 @@ void Target::updateMovement()
 	if (LeftRight == true)
 	{
 		this->sprite.setScale(-0.5f, 0.5f);
-		this->sprite.move(5.f, 0.f);
+		this->sprite.move(5.f * this->speed, 0.f);
 	}
 
 	else
 	{
 		this->sprite.setScale(0.5f, 0.5f);
-		this->sprite.move(-5.f, 0.f);
+		this->sprite.move(-5.f * this->speed, 0.f);
 	}
 
 }
@@ -100,7 +101,7 @@ void Target::updateMovement()
 
 void Target::updateAnimation()
 {
-	if (this->animationTimer.getElapsedTime().asMilliseconds()>= 200.f)
+	if (this->animationTimer.getElapsedTime().asMilliseconds()>= 200.f * this->speed)
 	{
 		this->currentFrame.left += 160.f;
 		if (this->currentFrame.left >= 1120.f)

@@ -12,6 +12,8 @@ OnHitAnimation::~OnHitAnimation()
 
 }
 
+
+
 void OnHitAnimation::updateOnHit(std::vector <OnHitAnimation*> onHitVector)
 {
 
@@ -34,11 +36,7 @@ void OnHitAnimation::initOnHit()
 	sf::Sprite onHitSprite;
 	sf::Clock onHitClock;
 	sf::IntRect onHitFrame;*/
-	if (!this->onHitTexture.loadFromFile("Textures/1.png"))
-	{
-		std::cout << "ERROR::TEXTURE NOT LOADED::ON HIT TEXTURE\n";
-	}
-	this->onHitSprite.setTexture(this->onHitTexture);
+	this->initSprite();
 
 	this->onHitSprite.setPosition(this->position);
 	this->center();
@@ -53,6 +51,34 @@ void OnHitAnimation::renderOnHitAnim(sf::RenderTarget& target)
 bool OnHitAnimation::getEndScreen()
 {
 	return this->endScreen;
+}
+
+void OnHitAnimation::initSprite()
+{
+
+	if (!this->onHitTexture.loadFromFile("Textures/plus3anim.png"))
+	{
+		std::cout << "ERROR::TEXTURE NOT LOADED::ON HIT TEXTURE\n";
+	}
+
+	this->onHitSprite.setScale(0.5f, 0.5f);
+	this->onHitSprite.setTexture(this->onHitTexture);
+	this->currentFrame = sf::IntRect(0, 0, 100, 100);
+	this->onHitSprite.setTextureRect(this->currentFrame);
+}
+
+void OnHitAnimation::updateAnimation()
+{
+	if (this->animationTimer.getElapsedTime().asMilliseconds() >= 200.f)
+	{
+		this->currentFrame.left += 100.f;
+		if (this->currentFrame.left >= 300.f)
+		{
+			this->currentFrame.left = 0;
+		}
+		this->animationTimer.restart();
+		this->onHitSprite.setTextureRect(this->currentFrame);
+	}
 }
 
 void OnHitAnimation::move(sf::Vector2f move)

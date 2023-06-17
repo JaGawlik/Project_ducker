@@ -5,8 +5,7 @@
 
 
 /// <summary>
-/// animacja dodawania punktow przy trafieniu celu 
-/// nowa klasa
+/// animacje onHit
 /// </summary>
 
 

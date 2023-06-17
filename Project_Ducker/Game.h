@@ -56,7 +56,7 @@ class Game
 	sf::Text timerText;
 	bool timeIsOver;
 	unsigned int counter;
-	int gameTime;
+	unsigned int gameTime;
 
 	//Cursor
 	sf::Cursor crosshair;
