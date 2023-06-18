@@ -8,7 +8,7 @@ const bool MainMenu::running()
 MainMenu::MainMenu()
 {
 	this->initFont();
-	//this->initMenuOptions();
+	this->menuMngr();
 	this->initBackground();
 	this->initHover();
 	this->hoverText = false;
@@ -43,9 +43,9 @@ void MainMenu::initFont()
 	}
 }
 
-void MainMenu::initMenuOptions()
+void MainMenu::menuMngr()
 {
-	/*sf::Text playText("Play", menuFont, 50);
+	sf::Text playText("Play", menuFont, 50);
 	playText.setPosition(300.f, 200.f);
 	this->menuVector.push_back(playText);
 
@@ -62,8 +62,87 @@ void MainMenu::initMenuOptions()
 
 	sf::Text exitText("Exit", menuFont, 50);
 	exitText.setPosition(300.f, 350.f);
-	this->menuVector.push_back(exitText);*/
+	this->menuVector.push_back(exitText);
+
+	sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
+	sf::Vector2f mousePos2f = this->window->mapPixelToCoords(mousePos);
+
+	//Hover animation
+	{
+		if (playText.getGlobalBounds().contains(mousePos2f))
+		{
+			this->hoverText = true;
+			this->hoverSprite.setPosition(playText.getGlobalBounds().left, playText.getGlobalBounds().top - 50.f);
+		}
+
+		if (scText.getGlobalBounds().contains(mousePos2f))
+		{
+			this->hoverText = true;
+			this->hoverSprite.setPosition(scText.getGlobalBounds().left, scText.getGlobalBounds().top - 50.f);
+		}
+
+		if (optionsText.getGlobalBounds().contains(mousePos2f))
+		{
+			this->hoverText = true;
+			this->hoverSprite.setPosition(optionsText.getGlobalBounds().left, optionsText.getGlobalBounds().top - 50.f);
+		}
+
+		if (exitText.getGlobalBounds().contains(mousePos2f))
+		{
+			this->hoverText = true;
+			this->hoverSprite.setPosition(exitText.getGlobalBounds().left, exitText.getGlobalBounds().top - 50.f);
+		}
+	}
+
+	while (this->window->pollEvent(this->choice))
+	{
+		if (this->choice.type == sf::Event::Closed || this->choice.key.code == sf::Keyboard::Escape)
+		{
+			this->window->close();
+		}
+
+		if (this->choice.type == sf::Event::MouseButtonPressed)
+		{
+			if (this->choice.mouseButton.button == sf::Mouse::Left)
+			{
+
+
+				if (playText.getGlobalBounds().contains(mousePos2f))
+				{
+					std::cout << "Wybrano play";
+					//Game game;
+					//Game game;
+
+					/*SFML TIME
+					while (game.running())
+					{
+						game.update();
+						game.render();
+					}*/
+				}
+
+				else if (scText.getGlobalBounds().contains(mousePos2f))
+				{
+					std::cout << "Wybrano scoreboard";
+				}
+
+				else if (optionsText.getGlobalBounds().contains(mousePos2f))
+				{
+					std::cout << "Wybrano opcje";
+				}
+
+				else if (exitText.getGlobalBounds().contains(mousePos2f))
+				{
+					std::cout << "Wybrano exit";
+					this->window->close();
+				}
+
+			}
+		}
+	}
 }
+
+
 
 void MainMenu::initBackground()
 {
@@ -106,148 +185,9 @@ void MainMenu::updateHover()
 
 void MainMenu::showMenu()
 {
-
-	sf::Text playText("Play", menuFont, 50);
-	playText.setPosition(300.f, 200.f);
-	this->menuVector.push_back(playText);
-
-
-	sf::Text scText("Scoreboard", menuFont, 50);
-	scText.setPosition(300.f, 250.f);
-	this->menuVector.push_back(scText);
-
-
-	sf::Text optionsText("Option", menuFont, 50);
-	optionsText.setPosition(300.f, 300.f);
-	this->menuVector.push_back(optionsText);
-
-
-	sf::Text exitText("Exit", menuFont, 50);
-	exitText.setPosition(300.f, 350.f);
-	this->menuVector.push_back(exitText);
-
-	sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
-	sf::Vector2f mousePos2f = this->window->mapPixelToCoords(mousePos);
-
 	for (int i = 0; i < this->menuVector.size(); i++)
 	{
 		this->window->draw(this->menuVector[i]);
-	}
-
-	
-
-	/*for (int i = 0; i < this->menuVector.size(); i++)
-	{
-		if (this->menuVector[i].getGlobalBounds().contains(mousePos2f))
-		{
-			this->hoverText = true;
-		}
-
-		else
-		{
-			this->hoverText = false;
-		}
-	}*/
-
-	if (playText.getGlobalBounds().contains(mousePos2f))
-	{
-		this->hoverText = true;
-		this->hoverSprite.setPosition(playText.getGlobalBounds().left, playText.getGlobalBounds().top - 50.f);
-	}
-
-	if (scText.getGlobalBounds().contains(mousePos2f))
-	{
-		this->hoverText = true;
-		this->hoverSprite.setPosition(scText.getGlobalBounds().left, scText.getGlobalBounds().top - 50.f);
-	}
-
-	if (optionsText.getGlobalBounds().contains(mousePos2f))
-	{
-		this->hoverText = true;
-		this->hoverSprite.setPosition(optionsText.getGlobalBounds().left, optionsText.getGlobalBounds().top - 50.f);
-	}
-
-	if (exitText.getGlobalBounds().contains(mousePos2f))
-	{
-		this->hoverText = true;
-		this->hoverSprite.setPosition(exitText.getGlobalBounds().left, exitText.getGlobalBounds().top - 50.f);
-	}
-
-	//if (playText.getGlobalBounds().contains(mousePos2f) || scText.getGlobalBounds().contains(mousePos2f) || optionsText.getGlobalBounds().contains(mousePos2f) || exitText.getGlobalBounds().contains(mousePos2f))
-	//{
-	//	this->hoverText = true;
-	//}
-
-	//else
-	//{
-	//	this->hoverText = false;
-	//}
-
-	/*if (this->menuVector[i].getGlobalBounds().contains(mousePos2f))
-	{
-		this->hoverText = true;
-	}
-
-	else
-	{
-		this->hoverText = false;
-	}*/
-
-
-
-	while (this->window->pollEvent(this->choice))
-	{
-		if (this->choice.type == sf::Event::Closed || this->choice.key.code == sf::Keyboard::Escape)
-		{
-			this->window->close();
-		}
-
-		
-		if (playText.getGlobalBounds().contains(mousePos2f))
-		{
-			//this->hoverSprite.setPosition(playText.getPosition().x, playText.getPosition().y - 50.f);
-			//hoverText = true;
-		}
-	
-
-		//if (this->choice.type == sf::Event::MouseButtonPressed)
-		//{
-		//	if (this->choice.mouseButton.button == sf::Mouse::Left)
-		//	{
-		//		
-
-		//		if (playText.getGlobalBounds().contains(mousePos2f))
-		//		{
-		//			std::cout << "Wybrano play";
-		//			//Game game;
-		//			//Game game;
-
-		//			/*SFML TIME
-		//			while (game.running())
-		//			{
-		//				game.update();
-		//				game.render();
-		//			}*/
-		//		}
-
-		//		else if (scText.getGlobalBounds().contains(mousePos2f))
-		//		{
-		//			std::cout << "Wybrano scoreboard";
-		//		}
-
-		//		else if (optionsText.getGlobalBounds().contains(mousePos2f))
-		//		{
-		//			std::cout << "Wybrano opcje";
-		//		}
-
-		//		else if (exitText.getGlobalBounds().contains(mousePos2f))
-		//		{
-		//			std::cout << "Wybrano exit";
-		//			this->window->close();
-		//		}
-
-		//	}
-		//}
 	}
 }
 
@@ -259,6 +199,7 @@ void MainMenu::hoverEffect()
 void MainMenu::update()
 {
 	this->updateHover();
+	this->menuMngr();
 }
 
 void MainMenu::render()

@@ -43,7 +43,7 @@ public:
 	const bool running();
 
 	void initFont();
-	void initMenuOptions();
+	void menuMngr();
 
 	void initBackground();
 
