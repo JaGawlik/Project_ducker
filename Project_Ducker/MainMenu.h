@@ -19,6 +19,8 @@ class MainMenu
 	//Font
 	sf::Font menuFont;
 	sf::Text menuOptions;
+	std::vector <sf::Text> menuVector;
+
 
 	//Background
 	sf::Sprite backgroundSprite;
@@ -41,6 +43,7 @@ public:
 	const bool running();
 
 	void initFont();
+	void initMenuOptions();
 
 	void initBackground();
 

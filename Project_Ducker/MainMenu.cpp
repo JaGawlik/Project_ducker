@@ -8,6 +8,7 @@ const bool MainMenu::running()
 MainMenu::MainMenu()
 {
 	this->initFont();
+	//this->initMenuOptions();
 	this->initBackground();
 	this->initHover();
 	this->hoverText = false;
@@ -42,6 +43,28 @@ void MainMenu::initFont()
 	}
 }
 
+void MainMenu::initMenuOptions()
+{
+	/*sf::Text playText("Play", menuFont, 50);
+	playText.setPosition(300.f, 200.f);
+	this->menuVector.push_back(playText);
+
+
+	sf::Text scText("Scoreboard", menuFont, 50);
+	scText.setPosition(300.f, 250.f);
+	this->menuVector.push_back(scText);
+
+
+	sf::Text optionsText("Option", menuFont, 50);
+	optionsText.setPosition(300.f, 300.f);
+	this->menuVector.push_back(optionsText);
+
+
+	sf::Text exitText("Exit", menuFont, 50);
+	exitText.setPosition(300.f, 350.f);
+	this->menuVector.push_back(exitText);*/
+}
+
 void MainMenu::initBackground()
 {
 	if (!this->backgroundTexture.loadFromFile("Textures/myBackground.png"))
@@ -60,7 +83,7 @@ void MainMenu::initHover()
 	}
 
 	this->hoverSprite.setTexture(this->hoverTexture);
-	//this->hoverSprite.setScale(-1.f, 1);
+	this->hoverSprite.setScale(-0.5f, 0.5f);
 	//this->hoverSprite.setPosition(400.f, 400.f);
 	this->currentHoverFrame = sf::IntRect(0, 320, 160, 160);
 	this->hoverSprite.setTextureRect(this->currentHoverFrame);
@@ -68,6 +91,7 @@ void MainMenu::initHover()
 
 void MainMenu::updateHover()
 {
+	
 	if (this->animationHoverTimer.getElapsedTime().asMilliseconds() >= 1500.f)
 	{
 		this->currentHoverFrame.left += 160.f;
@@ -82,26 +106,94 @@ void MainMenu::updateHover()
 
 void MainMenu::showMenu()
 {
+
 	sf::Text playText("Play", menuFont, 50);
 	playText.setPosition(300.f, 200.f);
+	this->menuVector.push_back(playText);
 
 
 	sf::Text scText("Scoreboard", menuFont, 50);
 	scText.setPosition(300.f, 250.f);
+	this->menuVector.push_back(scText);
 
 
 	sf::Text optionsText("Option", menuFont, 50);
 	optionsText.setPosition(300.f, 300.f);
+	this->menuVector.push_back(optionsText);
 
 
 	sf::Text exitText("Exit", menuFont, 50);
 	exitText.setPosition(300.f, 350.f);
+	this->menuVector.push_back(exitText);
+
+	sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
+	sf::Vector2f mousePos2f = this->window->mapPixelToCoords(mousePos);
+
+	for (int i = 0; i < this->menuVector.size(); i++)
+	{
+		this->window->draw(this->menuVector[i]);
+	}
+
+	
+
+	/*for (int i = 0; i < this->menuVector.size(); i++)
+	{
+		if (this->menuVector[i].getGlobalBounds().contains(mousePos2f))
+		{
+			this->hoverText = true;
+		}
+
+		else
+		{
+			this->hoverText = false;
+		}
+	}*/
+
+	if (playText.getGlobalBounds().contains(mousePos2f))
+	{
+		this->hoverText = true;
+		this->hoverSprite.setPosition(playText.getGlobalBounds().left, playText.getGlobalBounds().top - 50.f);
+	}
+
+	if (scText.getGlobalBounds().contains(mousePos2f))
+	{
+		this->hoverText = true;
+		this->hoverSprite.setPosition(scText.getGlobalBounds().left, scText.getGlobalBounds().top - 50.f);
+	}
+
+	if (optionsText.getGlobalBounds().contains(mousePos2f))
+	{
+		this->hoverText = true;
+		this->hoverSprite.setPosition(optionsText.getGlobalBounds().left, optionsText.getGlobalBounds().top - 50.f);
+	}
+
+	if (exitText.getGlobalBounds().contains(mousePos2f))
+	{
+		this->hoverText = true;
+		this->hoverSprite.setPosition(exitText.getGlobalBounds().left, exitText.getGlobalBounds().top - 50.f);
+	}
+
+	//if (playText.getGlobalBounds().contains(mousePos2f) || scText.getGlobalBounds().contains(mousePos2f) || optionsText.getGlobalBounds().contains(mousePos2f) || exitText.getGlobalBounds().contains(mousePos2f))
+	//{
+	//	this->hoverText = true;
+	//}
+
+	//else
+	//{
+	//	this->hoverText = false;
+	//}
+
+	/*if (this->menuVector[i].getGlobalBounds().contains(mousePos2f))
+	{
+		this->hoverText = true;
+	}
+
+	else
+	{
+		this->hoverText = false;
+	}*/
 
 
-	this->window->draw(playText);
-	this->window->draw(scText);
-	this->window->draw(optionsText);
-	this->window->draw(exitText);
 
 	while (this->window->pollEvent(this->choice))
 	{
@@ -110,45 +202,52 @@ void MainMenu::showMenu()
 			this->window->close();
 		}
 
-		if (this->choice.type == sf::Event::MouseButtonPressed)
+		
+		if (playText.getGlobalBounds().contains(mousePos2f))
 		{
-			if (this->choice.mouseButton.button == sf::Mouse::Left)
-			{
-				sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
-				sf::Vector2f mousePos2f = this->window->mapPixelToCoords(mousePos);
-
-				if (playText.getGlobalBounds().contains(mousePos2f))
-				{
-					std::cout << "Wybrano play";
-					//Game game;
-					//Game game;
-
-					/*SFML TIME
-					while (game.running())
-					{
-						game.update();
-						game.render();
-					}*/
-				}
-
-				else if (scText.getGlobalBounds().contains(mousePos2f))
-				{
-					std::cout << "Wybrano scoreboard";
-				}
-
-				else if (optionsText.getGlobalBounds().contains(mousePos2f))
-				{
-					std::cout << "Wybrano opcje";
-				}
-
-				else if (exitText.getGlobalBounds().contains(mousePos2f))
-				{
-					std::cout << "Wybrano exit";
-					this->window->close();
-				}
-
-			}
+			//this->hoverSprite.setPosition(playText.getPosition().x, playText.getPosition().y - 50.f);
+			//hoverText = true;
 		}
+	
+
+		//if (this->choice.type == sf::Event::MouseButtonPressed)
+		//{
+		//	if (this->choice.mouseButton.button == sf::Mouse::Left)
+		//	{
+		//		
+
+		//		if (playText.getGlobalBounds().contains(mousePos2f))
+		//		{
+		//			std::cout << "Wybrano play";
+		//			//Game game;
+		//			//Game game;
+
+		//			/*SFML TIME
+		//			while (game.running())
+		//			{
+		//				game.update();
+		//				game.render();
+		//			}*/
+		//		}
+
+		//		else if (scText.getGlobalBounds().contains(mousePos2f))
+		//		{
+		//			std::cout << "Wybrano scoreboard";
+		//		}
+
+		//		else if (optionsText.getGlobalBounds().contains(mousePos2f))
+		//		{
+		//			std::cout << "Wybrano opcje";
+		//		}
+
+		//		else if (exitText.getGlobalBounds().contains(mousePos2f))
+		//		{
+		//			std::cout << "Wybrano exit";
+		//			this->window->close();
+		//		}
+
+		//	}
+		//}
 	}
 }
 
@@ -169,6 +268,11 @@ void MainMenu::render()
 	this->window->draw(this->backgroundSprite);
 	
 	this->showMenu();
+
+	if (this->hoverText)
+	{
+		this->window->draw(this->hoverSprite);
+	}
 	
 	//this->window->draw(this->hoverSprite);
 
