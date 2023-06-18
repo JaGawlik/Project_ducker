@@ -37,7 +37,8 @@ class Target
 	
 public:
 
-	Target(sf::VideoMode);
+	//Target(sf::VideoMode);
+	Target(sf::Vector2f);
 	~Target();
 
 	sf::FloatRect getBounds();

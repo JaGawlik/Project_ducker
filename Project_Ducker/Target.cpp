@@ -5,10 +5,10 @@ bool Target::Side()
 	return LeftRight;
 }
 
-Target::Target(sf::VideoMode vMode)
+Target::Target(sf::Vector2f vMode)
 {
-	this->posXY.x = vMode.width;
-	this->posXY.y = vMode.height;
+	this->posXY.x = vMode.x;
+	this->posXY.y = vMode.y;
 
 	this->initTexture();
 	this->initSprite();
@@ -78,7 +78,7 @@ void Target::updateMovement()
 
 void Target::updateAnimation()
 {
-	if (this->animationTimer.getElapsedTime().asMilliseconds()>= 200.f * this->speed)
+	if (this->animationTimer.getElapsedTime().asMilliseconds()>= 150.f * this->speed)
 	{
 		this->currentFrame.left += 160.f;
 		if (this->currentFrame.left >= 1120.f)

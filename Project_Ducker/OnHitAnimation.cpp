@@ -1,8 +1,8 @@
 #include "OnHitAnimation.h"
 
-OnHitAnimation::OnHitAnimation(sf::VideoMode vMode ,sf::Vector2f pos)
+OnHitAnimation::OnHitAnimation(sf::Vector2f vMode ,sf::Vector2f pos)
 {
-	limit = vMode.height;
+	limit = vMode.y;
 	this->position = pos;
 	this->initOnHit();
 }

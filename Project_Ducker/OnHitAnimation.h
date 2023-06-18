@@ -27,7 +27,8 @@ class OnHitAnimation
 	void center();
 
 public:
-	OnHitAnimation(sf::VideoMode,sf::Vector2f);
+	//OnHitAnimation(sf::VideoMode,sf::Vector2f);
+	OnHitAnimation(sf::Vector2f, sf::Vector2f);
 	~OnHitAnimation();
 
 	void updateOnHit(std::vector <OnHitAnimation*>);

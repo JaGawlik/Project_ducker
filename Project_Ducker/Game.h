@@ -22,15 +22,14 @@
 
 class Game
 {
-	sf::VideoMode videoMode;
+	//sf::VideoMode videoMode;
+	sf::Vector2f videoMode;
 	sf::RenderWindow* window;
 	sf::Event event;
 
 	bool endGame;
 	sf::Sprite background;
 	sf::Texture backgroundTexture;
-
-//	unsigned int gameTime;
 
 	//Targets
 	unsigned int points;
@@ -43,7 +42,6 @@ class Game
 	sf::Vector2i mousePos;
 	sf::Vector2f mousePos2f;
 
-	//Cele
 	std::vector <Target*> targets;
 	Target* target;
 
@@ -66,29 +64,18 @@ class Game
 	sf::Texture onHitTexture;
 	std::vector <OnHitAnimation*> onHitVector;
 	
-	/*sf::Text onHitText;
-	sf::Font onHitFont;*/
-
 	void initVariables();
 	void initWindow();
 	void initBackground();
 	void initText();
 
-	//void createTarget();
-
-	//CELE moze do targeta
-	//float targetSpawnTimer;
-	//float targetSpawnTimerMax;
-	//int maxTargets;
-
-
 public:
 
-	//Konstruktor
-	Game(sf::VideoMode);
+	//Constructors
+	Game(sf::RenderWindow *);
 	~Game();
 
-	//Metody 
+	//Functions 
 	const bool running() const;
 	
 	void pollEvents();

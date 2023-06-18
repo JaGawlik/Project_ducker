@@ -1,11 +1,13 @@
 #include "Game.h"
 
-Game::Game(sf::VideoMode viMode)
+Game::Game(sf::RenderWindow * win)
 {
-	this->videoMode = viMode;
+	this->videoMode = sf::Vector2f(win->getSize());
 
+	this->window = win;
+	
 	this->initVariables();
-	this->initWindow();
+	//this->initWindow();
 	this->initCursor();
 	this->initBackground();
 	this->initText();
@@ -34,9 +36,9 @@ void Game::initVariables()
 void Game::initWindow()
 {
 	//this->videoMode = sf::VideoMode(800, 600);
-	this->window = new sf::RenderWindow(this->videoMode, "Projekt PK3 Kurka Wodna", sf::Style::Close | sf::Style::Titlebar);
+	//this->window = new sf::RenderWindow(this->videoMode, "Projekt PK3 Kurka Wodna", sf::Style::Close | sf::Style::Titlebar);
 
-	this->window->setFramerateLimit(30);	
+	//this->window->setFramerateLimit(30);	
 }
 
 void Game::initCursor()
@@ -83,7 +85,7 @@ void Game::initText()
 
 	this->timerText.setFont(this->gameFont);
 	this->timerText.setCharacterSize(15);
-	this->timerText.setPosition(this->videoMode.width - 110.f, 5.f);
+	this->timerText.setPosition(this->videoMode.x - 110.f, 5.f);
 	this->timerText.setOutlineColor(sf::Color::Black);
 	this->timerText.setOutlineThickness(0.8f);
 }
@@ -175,7 +177,7 @@ void Game::deleteTargets()
 					{
 						deleted = true;
 						
-						this->onHitVector.push_back(new OnHitAnimation(this->videoMode,sf::Vector2f(this->targets[i]->getBounds().left + this->targets[i]->getBounds().width /2.f, this->targets[i]->getBounds().top + this->targets[i]->getBounds().height / 2.f)));
+						this->onHitVector.push_back(new OnHitAnimation(this->videoMode ,sf::Vector2f(this->targets[i]->getBounds().left + this->targets[i]->getBounds().width /2.f, this->targets[i]->getBounds().top + this->targets[i]->getBounds().height / 2.f)));
 						
 						delete this->targets.at(i);
 																		

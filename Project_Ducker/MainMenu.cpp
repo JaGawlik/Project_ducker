@@ -5,9 +5,14 @@ const bool MainMenu::running()
 	return this->window->isOpen();
 }
 
-MainMenu::MainMenu()
+
+MainMenu::MainMenu(sf::RenderWindow* wind)
 {
-	this->initFont();
+	this->window = wind;
+
+	this->deci = 0;
+
+	this->initWindow();
 	this->menuMngr();
 	this->initBackground();
 	this->initHover();
@@ -21,7 +26,7 @@ MainMenu::~MainMenu()
 
 
 
-void MainMenu::initFont()
+void MainMenu::initWindow()
 {
 	std::ifstream fstrem("Config/window.init");
 
@@ -35,7 +40,7 @@ void MainMenu::initFont()
 	fstrem.close();*/
 
 	//this->resolution = sf::VideoMode(800.f, 600.f);
-	this->window = new sf::RenderWindow(resolution, "Menu", sf::Style::Close | sf::Style::Titlebar);
+	//this->window = new sf::RenderWindow(resolution, "Kurka Wodna", sf::Style::Close | sf::Style::Titlebar);
 
 	if (!this->menuFont.loadFromFile("Fonts/8-bit Arcade In.ttf"))
 	{
@@ -67,7 +72,7 @@ void MainMenu::menuMngr()
 	sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
 	sf::Vector2f mousePos2f = this->window->mapPixelToCoords(mousePos);
 
-	//Hover animation
+	//Text hover effect
 	{
 		if (playText.getGlobalBounds().contains(mousePos2f))
 		{
@@ -110,15 +115,9 @@ void MainMenu::menuMngr()
 				if (playText.getGlobalBounds().contains(mousePos2f))
 				{
 					std::cout << "Wybrano play";
-					//Game game;
-					//Game game;
+					this->deci = 1;
 
-					/*SFML TIME
-					while (game.running())
-					{
-						game.update();
-						game.render();
-					}*/
+				
 				}
 
 				else if (scText.getGlobalBounds().contains(mousePos2f))
@@ -163,7 +162,6 @@ void MainMenu::initHover()
 
 	this->hoverSprite.setTexture(this->hoverTexture);
 	this->hoverSprite.setScale(-0.5f, 0.5f);
-	//this->hoverSprite.setPosition(400.f, 400.f);
 	this->currentHoverFrame = sf::IntRect(0, 320, 160, 160);
 	this->hoverSprite.setTextureRect(this->currentHoverFrame);
 }
@@ -191,15 +189,16 @@ void MainMenu::showMenu()
 	}
 }
 
-void MainMenu::hoverEffect()
+int MainMenu::decision()
 {
-
+	return this->deci;
 }
 
 void MainMenu::update()
 {
 	this->updateHover();
 	this->menuMngr();
+	this->decision();
 }
 
 void MainMenu::render()
@@ -207,15 +206,13 @@ void MainMenu::render()
 	this->window->clear();
 
 	this->window->draw(this->backgroundSprite);
-	
+
 	this->showMenu();
 
 	if (this->hoverText)
 	{
 		this->window->draw(this->hoverSprite);
 	}
-	
-	//this->window->draw(this->hoverSprite);
 
 	this->window->display();
 }

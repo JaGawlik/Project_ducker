@@ -32,17 +32,18 @@ class MainMenu
 	sf::Texture hoverTexture;
 	sf::IntRect currentHoverFrame;
 
-	bool hoverText;
+	unsigned int deci; //0 menu, 1 game, 2 scoreboard, 3 options
 
+	bool hoverText;
 	
 public:
 
-	MainMenu();
+	MainMenu(sf::RenderWindow *);
 	~MainMenu();
 
 	const bool running();
 
-	void initFont();
+	void initWindow();
 	void menuMngr();
 
 	void initBackground();
@@ -52,7 +53,9 @@ public:
 
 	void showMenu();
 
-	void hoverEffect();
+	//void renderGame();
+
+	int decision();
 	
 	void update();
 	void render();
