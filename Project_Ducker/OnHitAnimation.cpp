@@ -69,10 +69,10 @@ void OnHitAnimation::initSprite()
 
 void OnHitAnimation::updateAnimation()
 {
-	if (this->animationTimer.getElapsedTime().asMilliseconds() >= 200.f)
+	if (this->animationTimer.getElapsedTime().asMilliseconds() >= 300.f)
 	{
 		this->currentFrame.left += 100.f;
-		if (this->currentFrame.left >= 300.f)
+		if (this->currentFrame.left >= 200.f)
 		{
 			this->currentFrame.left = 0;
 		}
@@ -96,4 +96,3 @@ void OnHitAnimation::center()
 {
 	this->onHitSprite.setPosition(this->onHitSprite.getGlobalBounds().left - (this->onHitSprite.getGlobalBounds().width * (1.f / 2.f)), this->onHitSprite.getGlobalBounds().top - (this->onHitSprite.getGlobalBounds().height * (1.f / 2.f)));
 }
-

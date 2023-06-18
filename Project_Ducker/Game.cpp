@@ -1,6 +1,26 @@
 #include "Game.h"
 
+Game::Game(sf::VideoMode viMode)
+{
+	this->videoMode = viMode;
 
+	this->initVariables();
+	this->initWindow();
+	this->initCursor();
+	this->initBackground();
+	this->initText();
+	this->initTargets();
+}
+
+Game::~Game()
+{
+	delete this->window;
+	delete this->target;
+	/*for (auto * onHit: this->onHitVector)
+	{
+		delete onHit;
+	}*/
+}
 
 void Game::initVariables()
 {
@@ -9,12 +29,6 @@ void Game::initVariables()
 	this->timeIsOver = false;
 	this->gameTime = 20;
 	this->counter = 0;
-
-
-	//this->videoMode = 
-	//this->countdownTime = sf::seconds(30);
-		
-	//this->gameTime = 30;
 }
 
 void Game::initWindow()
@@ -23,6 +37,22 @@ void Game::initWindow()
 	this->window = new sf::RenderWindow(this->videoMode, "Projekt PK3 Kurka Wodna", sf::Style::Close | sf::Style::Titlebar);
 
 	this->window->setFramerateLimit(30);	
+}
+
+void Game::initCursor()
+{
+	if (!this->crosshairTexture.loadFromFile("Textures/crosshair01.png"))
+	{
+		std::cout << "ERROR::TEXTURE NOT LOADED::CROSSHAIR";
+	}
+
+	else
+	{
+		if (this->crosshair.loadFromPixels(crosshairTexture.getPixelsPtr(), crosshairTexture.getSize(), { 50 , 50 }))
+		{
+			window->setMouseCursor(crosshair);
+		}
+	}
 }
 
 void Game::initBackground()
@@ -51,44 +81,24 @@ void Game::initText()
 	this->gameText.setOutlineColor(sf::Color::Black);
 	this->gameText.setOutlineThickness(0.8f);
 
-
 	this->timerText.setFont(this->gameFont);
 	this->timerText.setCharacterSize(15);
 	this->timerText.setPosition(this->videoMode.width - 110.f, 5.f);
 	this->timerText.setOutlineColor(sf::Color::Black);
 	this->timerText.setOutlineThickness(0.8f);
-
-	/*this->onHitText.setFont(this->onHitFont);
-	this->onHitText.setCharacterSize(15);
-	this->onHitText.setOutlineThickness(0.8f);*/
 }
 
-
-
-Game::Game(sf::VideoMode viMode)
+void Game::initTargets()
 {
-	this->videoMode = viMode;
+	//target = new Target(sf::Vector2f(0.f, 0.f));
+	//target = new Target(sf::VideoMode());
 
-	this->initVariables();
-	this->initWindow();
-	this->initCursor();
-	this->initBackground();
-	this->initText();
-	this->initTargets();
+	this->targetSpawnTimer = 15.f;
+	this->targetLastSpawn = 0;
+	this->maxTargets = 8;
+	this->points = 0;
 
 }
-
-
-Game::~Game()
-{
-	delete this->window;
-	delete this->target;
-	/*for (auto * onHit: this->onHitVector)
-	{
-		delete onHit;
-	}*/
-}
-
 
 const bool Game::running() const
 {
@@ -122,17 +132,6 @@ void Game::updateMousePos()
 	
 }
 
-void Game::initTargets()
-{
-	//target = new Target(sf::Vector2f(0.f, 0.f));
-	//target = new Target(sf::VideoMode());
-
-	this->targetSpawnTimer = 15.f;
-	this->targetLastSpawn = 0;
-	this->maxTargets = 8;
-	this->points = 0;
-
-}
 
 void Game::deleteTargets()
 {
@@ -177,15 +176,9 @@ void Game::deleteTargets()
 						deleted = true;
 						
 						this->onHitVector.push_back(new OnHitAnimation(this->videoMode,sf::Vector2f(this->targets[i]->getBounds().left + this->targets[i]->getBounds().width /2.f, this->targets[i]->getBounds().top + this->targets[i]->getBounds().height / 2.f)));
+						
 						delete this->targets.at(i);
-												
-						/*this->onHitAnima(this->targets[i].)*/
-
-						//new OnHitAnimation(this->targets[i]->getPosition());
-												
-						//this->onHitAnimation(this->targets[i]->getPosition());
-						/*this->onhitAnimation(this->targets[i]->getPosition());*/
-															
+																		
 						this->targets.erase(this->targets.begin() + i);
 					
 						this->points += 3;
@@ -201,19 +194,6 @@ void Game::deleteTargets()
 		}		
 	}
 }
-
-//void Game::mainTimer()
-//{
-//	sf::Time elapsed = clock.getElapsedTime();
-//	int seconds = static_cast <int> (elapsed.asSeconds());
-//
-//	if (elapsed >= countdownTime && !timeIsOver)
-//	{
-//		timeIsOver = true;
-//		
-//		std::cout << "Koniec czasu \n";
-//	}
-//}
 
 void Game::updateTimer()
 {
@@ -233,8 +213,6 @@ void Game::updateTimer()
 		endGame = true;
 	}
 
-	//this->mainTimer();
-
 	std::stringstream ss;
 	
 	ss << "Time: " << this->gameTime;
@@ -248,24 +226,7 @@ void Game::renderTime(sf::RenderTarget& target)
 	target.draw(this->timerText);
 }
 
-void Game::initCursor()
-{
-	/*sf::Cursor crosshair;
-	sf::Texture crosshairTexture;*/
 
-	if (!this->crosshairTexture.loadFromFile("Textures/crosshair01.png"))
-	{
-		std::cout << "ERROR::TEXTURE NOT LOADED::CROSSHAIR";
-	}
-
-	else
-	{
-		if(this->crosshair.loadFromPixels(crosshairTexture.getPixelsPtr(), crosshairTexture.getSize(), { 50 , 50 }))
-		{
-			window->setMouseCursor(crosshair);
-		}
-	}
-}
 
 void Game::updateTargets()
 {
@@ -385,19 +346,6 @@ void Game::updateOnHit()
 
 	}
 
-	
-	
-	
-	/*if ((this->onHitSprite.getGlobalBounds().top - this->onHitSprite.getGlobalBounds().height) >= 0.f)
-	{
-		this->onHitSprite.move(0, -10.f);
-		this->endScreen = false;
-	}
-
-	else
-	{
-		this->endScreen = true;
-	}*/
 
 	
 }
@@ -405,20 +353,5 @@ void Game::updateOnHit()
 
 
 
-
-
-
-
-
-//void Game::onhitAnimation(sf::Vector2f pos)
-//{
-//	this->onHitText.setString("+3");
-//	this->onHitText.setPosition(pos);
-//}
-//
-//void Game::rendetOnHit(sf::RenderTarget& target)
-//{
-//	target.draw(this->onHitText);
-//}
 
 

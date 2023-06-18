@@ -12,16 +12,10 @@ Target::Target(sf::VideoMode vMode)
 
 	this->initTexture();
 	this->initSprite();
+	this->initAnimation();
 	
 	this->spawnTarget();
 	this->speed = 1.f;
-
-	//this->targetSide();
-
-	//this->initTarget();
-
-	//this->updateTarget();
-	//this->target.setPosition(XY);
 }
 
 Target::~Target()
@@ -50,7 +44,6 @@ void Target::initTexture()
 
 void Target::initSprite()
 {
-	//this->target.setPosition(100.f, 100.f);
 	this->sprite.setTexture(this->texture);
 	this->currentFrame = sf::IntRect(0, 160, 160, 160);
 	this->sprite.setTextureRect(this->currentFrame);
@@ -61,19 +54,6 @@ void Target::initAnimation()
 	this->animationTimer.restart();
 }
 
-//void Target::initTarget()
-//{
-//	/*this->points = 0;
-//	this->targetSpawnTimer = 10.f;
-//	this->targetLastSpawn = 0;
-//	this->maxTargets = 5;*/
-//
-//	//this->target.setScale(0.5f, 0.5f);
-//	//this->target.setPosition(100.f, 100.f);
-//
-//	//renderTarget();
-//}
-
 void Target::renderTarget(sf::RenderTarget* target)
 {
 	//std::cout << "pozycja x: " << this->target.getPosition().x << " pozycja y: " << this->target.getPosition().y << "\n";
@@ -82,8 +62,6 @@ void Target::renderTarget(sf::RenderTarget* target)
 
 void Target::updateMovement()
 {	
-	//this->target.move(5.f, 0.f);
-		
 	if (LeftRight == true)
 	{
 		this->sprite.setScale(-0.5f, 0.5f);
@@ -95,7 +73,6 @@ void Target::updateMovement()
 		this->sprite.setScale(0.5f, 0.5f);
 		this->sprite.move(-5.f * this->speed, 0.f);
 	}
-
 }
 
 
@@ -141,143 +118,5 @@ void Target::spawnTarget()
 		LeftRight = false;
 		this->sprite.setPosition(posXY.x, zmienna);
 	}
-
-	//this->target.setPosition(0.f, zmienna);
 }
  
-
-
-
-//void Target::targetSide()
-//{
-//	this->target.setPosition(posXY);
-//}
-
-//void Target::spawnTarget()
-//{
-//	this->initTexture();
-//	this->initSprite();
-//	
-//	std::random_device rd;
-//	std::mt19937 gen(rd());
-//	std::uniform_int_distribution<int> dist(0, this->wielkososcOknaY - this->target.getGlobalBounds().height);
-//
-//	float zmienna = dist(gen);
-//
-//	this->target.setPosition(
-//		static_cast<float>(static_cast<int>(0 /*- this->target.getGlobalBounds().width*/)),
-//		static_cast<float>(zmienna)
-//	);
-//
-//	this->targets.push_back(this->target);
-//
-//	std::cout << this->targets.size();
-//}
-
-//
-//void Target::createTarget()
-//{
-//	this->initTarget();
-//
-//	this->targetLastSpawn = 0;
-//
-//	if (this->targets.size() < this->maxTargets)
-//	{
-//		if (this->targetSpawnTimer >= this->targetLastSpawn)
-//		{
-//			//this->spawnTarget();
-//			this->targetLastSpawn = 0.f;
-//		}
-//
-//		else
-//		{
-//			this->targetLastSpawn += 1;
-//		}
-//	}
-//
-//	//while(maxTargets > this->targets.size() && this->targetLastSpawn < this->targetSpawnTimer)
-//	//{
-//	//	this->initTexture();
-//	//	this->initSprite();
-//	//	
-//	//	std::random_device rd;
-//	//	std::mt19937 gen(rd());
-//	//	std::uniform_int_distribution<int> dist(0, this->wielkososcOknaY - this->target.getGlobalBounds().height);
-//
-//	//	float zmienna = dist(gen);
-//
-//	//	this->target.setPosition(
-//	//		static_cast<float>(static_cast<int>(0 - this->target.getGlobalBounds().width)),
-//	//		static_cast<float>(zmienna)
-//	//	);
-//
-//
-//	//	this->targetLastSpawn += 1;
-//	//	this->targets.push_back(this->target);
-//
-//	////std::cout << this->targets.size();
-//	//}
-//	
-//	//float zmienna = static_cast<float>(rand() % this->sizeWindow.y + this->target.getGlobalBounds().height);
-//	
-//	
-//	
-//
-//	//std::cout << "pozycja x: " << target.getPosition().x << " pozycja y: " << target.getPosition().y << "\n";
-//
-//}
-
-
-
-//
-//void Target::renderTarget(sf::RenderTarget* target)
-//{
-//	for (auto& t : this->targets)
-//	{
-//		target->draw(this->target);
-//	}
-//}
-//
-//
-//void Target::createTarget()
-//{
-//	//GLOBAL BOUNDSY DO ZROBIENIA
-//	std::random_device rd; 
-//	std::mt19937 gen(rd());
-//	std::uniform_int_distribution<int> dist(0, this->sizeWindow.y - this->target.getGlobalBounds().height);
-//
-//	float zmienna = dist(gen);
-//
-//	//float zmienna = static_cast<float>(rand() % this->sizeWindow.y + this->target.getGlobalBounds().height);
-//	//std::cout << "Wsp: " << zmienna << std::endl;
-//	
-//	this->target.setPosition(
-//		static_cast<float>(static_cast<int>(this->sizeWindow.x)),
-//		static_cast<float>(/*rand() % (this->sizeWindow.y)*/zmienna)
-//	);
-//
-//	//Spawn
-//	this->targets.push_back(&target);
-//	std::cout << "Cele: " << this->targets.size() << "\n";
-//}
-//
-//
-//void Target::updateTarget()
-//{
-//	if (this->targets.size() < this->maxTargets)
-//	{
-//		if (this->targetSpawnTimer >= this->targetSpawnTimerMax)
-//		{
-//			this->createTarget();
-//			this->targetSpawnTimer = 0.f;
-//		}
-//
-//		else
-//			this->targetSpawnTimer += 1.f;
-//	}
-//
-//	for (auto &s: this->targets)
-//	{
-//		s->move(-5.f, 0.f);
-//	}
-//}

@@ -28,7 +28,6 @@ class Target
 	void initSprite();
 	void initAnimation();
 
-	//int points;
 	float speed;
 	int typeTarget;
 	float targetSpawnTimer;
@@ -38,7 +37,6 @@ class Target
 	
 public:
 
-	//Target(sf::Vector2f);
 	Target(sf::VideoMode);
 	~Target();
 
@@ -46,11 +44,8 @@ public:
 	sf::Vector2f getPosition();
 	bool Side();
 	
-
-	//void initTarget();
 	void renderTarget(sf::RenderTarget* tar);
-	//void spawnTarget();
-
+	
 	void updateMovement();
 	void updateAnimation();
 
@@ -58,14 +53,5 @@ public:
 
 	void spawnTarget();
 
-	
-
-
-	
-	//void createTarget();
-
-	//void setTargetPosition();
-	//void createTarget();
-	//void updateTarget();
 };
 

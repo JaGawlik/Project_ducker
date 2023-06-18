@@ -16,10 +16,21 @@ class MainMenu
 	sf::RenderWindow* window;
 	sf::Event choice;
 
+	//Font
 	sf::Font menuFont;
-	sf::Text menuOptions[4];
+	sf::Text menuOptions;
 
+	//Background
+	sf::Sprite backgroundSprite;
+	sf::Texture backgroundTexture;
 
+	//HoverEffects
+	sf::Clock animationHoverTimer;
+	sf::Sprite hoverSprite;
+	sf::Texture hoverTexture;
+	sf::IntRect currentHoverFrame;
+
+	bool hoverText;
 
 	
 public:
@@ -29,8 +40,17 @@ public:
 
 	const bool running();
 
-	void init();
-	void show();
+	void initFont();
+
+	void initBackground();
+
+	void initHover();
+	void updateHover();
+
+	void showMenu();
+
+	void hoverEffect();
+	
 	void update();
 	void render();
 
