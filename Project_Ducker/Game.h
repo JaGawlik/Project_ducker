@@ -27,16 +27,24 @@ class Game
 	sf::RenderWindow* window;
 	sf::Event event;
 
-	bool endGame;
 	sf::Sprite background;
 	sf::Texture backgroundTexture;
 
 	//Summary
+	
 	sf::Sprite backgroundSummarySprite;
 	sf::Texture backgroundSummaryTexture;
 
+	std::stringstream ssKeyboardWord;
+	std::string keyboardWord;
+	sf::Text summaryText;
+	bool clear;
+	bool deleteLetter;
+	
+
 	//Targets
 	unsigned int points;
+	unsigned int pointsForHit;
 	int typeTarget;
 	float targetSpawnTimer;
 	float targetLastSpawn;
@@ -49,8 +57,9 @@ class Game
 	std::vector <Target*> targets;
 	Target* target;
 
-	sf::Text gameText;
+	sf::Text pointText;
 	sf::Font gameFont;
+	std::vector <std::string> nickVector;
 
 	//Timer
 	sf::Clock clock;

@@ -22,10 +22,12 @@ Game::~Game()
 
 void Game::initVariables()
 {
-	this->endGame = false;
 	this->mouseHeld = false;
 	this->timeIsOver = false;
-	this->gameTime = 2;
+	this->clear = false;
+	this->deleteLetter = false;
+	this->pointsForHit = 3;
+	this->gameTime = 1;
 	this->counter = 0;
 }
 
@@ -65,17 +67,21 @@ void Game::initText()
 		std::cout << "ERROR::FONT NOT LOADED::TEXT FONT\n";
 	}
 
-	this->gameText.setFont(this->gameFont);
-	this->gameText.setCharacterSize(50);
-	this->gameText.setPosition(8.f, 0);
-	this->gameText.setOutlineColor(sf::Color::Black);
-	this->gameText.setOutlineThickness(0.8f);
+	this->pointText.setFont(this->gameFont);
+	this->pointText.setCharacterSize(50);
+	this->pointText.setPosition(8.f, 0);
+	this->pointText.setOutlineColor(sf::Color::Black);
+	this->pointText.setOutlineThickness(0.8f);
 
 	this->timerText.setFont(this->gameFont);
 	this->timerText.setCharacterSize(45);
 	this->timerText.setPosition(this->videoMode.x - 150.f, 5.f);
 	this->timerText.setOutlineColor(sf::Color::Black);
 	this->timerText.setOutlineThickness(0.8f);
+
+	this->summaryText.setFont(this->gameFont);
+	this->summaryText.setOutlineColor(sf::Color::Black);
+	this->summaryText.setOutlineThickness(0.8f);
 }
 
 void Game::initTargets()
@@ -104,8 +110,213 @@ void Game::pollEvents()
 
 		case sf::Event::KeyPressed:
 			if (this->event.key.code == sf::Keyboard::Escape)
+			{
 				this->window->close();
-			break;
+				break;
+			}
+
+			//Keyboard coding
+			{
+				if (this->event.key.code == sf::Keyboard::A)
+				{
+					this->nickVector.push_back("a");
+					ssKeyboardWord << "a";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::B)
+				{
+					this->nickVector.push_back("b");
+					ssKeyboardWord << "b";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::C)
+				{
+					this->nickVector.push_back("c");
+					ssKeyboardWord << "c";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::D)
+				{
+					this->nickVector.push_back("d");
+					ssKeyboardWord << "d";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::E)
+				{
+					this->nickVector.push_back("e");
+					ssKeyboardWord << "e";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::F)
+				{
+					this->nickVector.push_back("f");
+					ssKeyboardWord << "f";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::G)
+				{
+					this->nickVector.push_back("g");
+					ssKeyboardWord << "g";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::H)
+				{
+					this->nickVector.push_back("h");
+					ssKeyboardWord << "h";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::I)
+				{
+					this->nickVector.push_back("i");
+					ssKeyboardWord << "i";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::J)
+				{
+					this->nickVector.push_back("j");
+					ssKeyboardWord << "j";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::K)
+				{
+					this->nickVector.push_back("k");
+					ssKeyboardWord << "k";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::L)
+				{
+					this->nickVector.push_back("l");
+					ssKeyboardWord << "l";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::M)
+				{
+					this->nickVector.push_back("m");
+					ssKeyboardWord << "m";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::N)
+				{
+					this->nickVector.push_back("n");
+					ssKeyboardWord << "n";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::O)
+				{
+					this->nickVector.push_back("o");
+					ssKeyboardWord << "o";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::P)
+				{
+					this->nickVector.push_back("p");
+					ssKeyboardWord << "p";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::Q)
+				{
+					this->nickVector.push_back("q");
+					ssKeyboardWord << "q";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::R)
+				{
+					this->nickVector.push_back("r");
+					ssKeyboardWord << "r";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::S)
+				{
+					this->nickVector.push_back("s");
+					ssKeyboardWord << "s";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::T)
+				{
+					this->nickVector.push_back("t");
+					ssKeyboardWord << "t";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::U)
+				{
+					this->nickVector.push_back("u");
+					ssKeyboardWord << "u";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::V)
+				{
+					this->nickVector.push_back("v");
+					ssKeyboardWord << "v";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::W)
+				{
+					this->nickVector.push_back("w");
+					ssKeyboardWord << "w";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::X)
+				{
+					this->nickVector.push_back("x");
+					ssKeyboardWord << "x";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::Y)
+				{
+					this->nickVector.push_back("y");
+					ssKeyboardWord << "y";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::Z)
+				{
+					this->nickVector.push_back("z");
+					ssKeyboardWord << "z";
+					break;
+				}
+
+				if (this->event.key.code == sf::Keyboard::Backspace)
+				{
+					if(this->nickVector.size() == 0)
+					{
+						break;
+					}
+
+					std::string popper;
+					popper = ssKeyboardWord.str();
+					popper.pop_back();
+
+					ssKeyboardWord.str("");
+
+					ssKeyboardWord << popper;
+
+					break;
+				}
+			}
 		}
 	}
 }
@@ -165,7 +376,7 @@ void Game::deleteTargets()
 																		
 						this->targets.erase(this->targets.begin() + i);
 					
-						this->points += 3;
+						this->points += pointsForHit;
 					}
 
 				}
@@ -196,6 +407,7 @@ void Game::updateTimer()
 	{
 		this->timeIsOver = true;
 		this->maxTargets = 0;
+		this->pointsForHit = 0;
 	}
 
 	std::stringstream ss;
@@ -235,12 +447,17 @@ void Game::updateText()
 
 	ss << "Points " << this->points;
 	
-	this->gameText.setString(ss.str());
+	this->pointText.setString(ss.str());
 }
 
 void Game::renderText(sf::RenderTarget& target)
 {
-	target.draw(this->gameText);
+	target.draw(this->pointText);
+
+	if (this->timeIsOver)
+	{
+		target.draw(this->summaryText);
+	}
 }
 
 void Game::update()
@@ -344,13 +561,34 @@ void Game::initSummary()
 
 void Game::updateGameSummary()
 {
-	this->gameText.setPosition(300.f, 250.f);
-	this->gameText.setCharacterSize(60);
+	this->pointText.setPosition(300.f, 250.f);
+	this->pointText.setCharacterSize(60);
+
+	this->signIn();
 }
 
 void Game::signIn()
 {
+	this->summaryText.setCharacterSize(60);
+	
 
+	if (this->nickVector.size() != 0 && this->clear == false)
+	{
+		this->ssKeyboardWord.str("");
+		
+		this->nickVector.clear();
+		
+		this->clear = true;
+	}
+
+	else
+	{
+		this->clear = true;
+		
+		this->summaryText.setString(ssKeyboardWord.str());	
+	}
+
+	this->summaryText.setPosition(((this->window->getSize().x) - (ssKeyboardWord.str().length() * 30.f)) / 2, 400.f);
 }
 
 
