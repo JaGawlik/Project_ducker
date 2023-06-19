@@ -98,7 +98,6 @@ void Target::update()
 
 void Target::spawnTarget()
 {
-	
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<int> dist(0, this->posXY.y - sprite.getGlobalBounds().height);

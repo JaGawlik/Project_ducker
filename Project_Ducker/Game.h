@@ -31,6 +31,10 @@ class Game
 	sf::Sprite background;
 	sf::Texture backgroundTexture;
 
+	//Summary
+	sf::Sprite backgroundSummarySprite;
+	sf::Texture backgroundSummaryTexture;
+
 	//Targets
 	unsigned int points;
 	int typeTarget;
@@ -54,7 +58,7 @@ class Game
 	sf::Text timerText;
 	bool timeIsOver;
 	unsigned int counter;
-	unsigned int gameTime;
+	int gameTime;
 
 	//Cursor
 	sf::Cursor crosshair;
@@ -65,7 +69,6 @@ class Game
 	std::vector <OnHitAnimation*> onHitVector;
 	
 	void initVariables();
-	void initWindow();
 	void initBackground();
 	void initText();
 
@@ -95,8 +98,13 @@ public:
 
 	bool gameOver();
 
-	void initOnHit();
 	void updateOnHit();
+
+
+	void initSummary();
+	void updateGameSummary();
+
+	void signIn();
 
 	void update();
 	void render();

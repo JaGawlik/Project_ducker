@@ -32,16 +32,6 @@ void MainMenu::initWindow()
 
 	sf::VideoMode resolution(800.f, 600.f);
 
-	/*if (fstrem.is_open())
-	{
-		fstrem >> resolution.width >> resolution.height;
-	}
-
-	fstrem.close();*/
-
-	//this->resolution = sf::VideoMode(800.f, 600.f);
-	//this->window = new sf::RenderWindow(resolution, "Kurka Wodna", sf::Style::Close | sf::Style::Titlebar);
-
 	if (!this->menuFont.loadFromFile("Fonts/8-bit Arcade In.ttf"))
 	{
 		std::cout << "Nie zaladowano fontu";
@@ -77,25 +67,25 @@ void MainMenu::menuMngr()
 		if (playText.getGlobalBounds().contains(mousePos2f))
 		{
 			this->hoverText = true;
-			this->hoverSprite.setPosition(playText.getGlobalBounds().left, playText.getGlobalBounds().top - 50.f);
+			this->hoverSprite.setPosition(playText.getGlobalBounds().left - 10.f, playText.getGlobalBounds().top - 50.f);
 		}
 
 		if (scText.getGlobalBounds().contains(mousePos2f))
 		{
 			this->hoverText = true;
-			this->hoverSprite.setPosition(scText.getGlobalBounds().left, scText.getGlobalBounds().top - 50.f);
+			this->hoverSprite.setPosition(scText.getGlobalBounds().left - 10.f, scText.getGlobalBounds().top - 50.f);
 		}
 
 		if (optionsText.getGlobalBounds().contains(mousePos2f))
 		{
 			this->hoverText = true;
-			this->hoverSprite.setPosition(optionsText.getGlobalBounds().left, optionsText.getGlobalBounds().top - 50.f);
+			this->hoverSprite.setPosition(optionsText.getGlobalBounds().left - 10.f, optionsText.getGlobalBounds().top - 50.f);
 		}
 
 		if (exitText.getGlobalBounds().contains(mousePos2f))
 		{
 			this->hoverText = true;
-			this->hoverSprite.setPosition(exitText.getGlobalBounds().left, exitText.getGlobalBounds().top - 50.f);
+			this->hoverSprite.setPosition(exitText.getGlobalBounds().left - 10.f, exitText.getGlobalBounds().top - 50.f);
 		}
 	}
 
@@ -116,8 +106,6 @@ void MainMenu::menuMngr()
 				{
 					std::cout << "Wybrano play";
 					this->deci = 1;
-
-				
 				}
 
 				else if (scText.getGlobalBounds().contains(mousePos2f))
@@ -135,7 +123,6 @@ void MainMenu::menuMngr()
 					std::cout << "Wybrano exit";
 					this->window->close();
 				}
-
 			}
 		}
 	}

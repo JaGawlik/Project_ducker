@@ -7,21 +7,17 @@ Game::Game(sf::RenderWindow * win)
 	this->window = win;
 	
 	this->initVariables();
-	//this->initWindow();
 	this->initCursor();
 	this->initBackground();
 	this->initText();
 	this->initTargets();
+	this->initSummary();
 }
 
 Game::~Game()
 {
 	delete this->window;
 	delete this->target;
-	/*for (auto * onHit: this->onHitVector)
-	{
-		delete onHit;
-	}*/
 }
 
 void Game::initVariables()
@@ -29,16 +25,8 @@ void Game::initVariables()
 	this->endGame = false;
 	this->mouseHeld = false;
 	this->timeIsOver = false;
-	this->gameTime = 20;
+	this->gameTime = 2;
 	this->counter = 0;
-}
-
-void Game::initWindow()
-{
-	//this->videoMode = sf::VideoMode(800, 600);
-	//this->window = new sf::RenderWindow(this->videoMode, "Projekt PK3 Kurka Wodna", sf::Style::Close | sf::Style::Titlebar);
-
-	//this->window->setFramerateLimit(30);	
 }
 
 void Game::initCursor()
@@ -72,34 +60,30 @@ void Game::initBackground()
 
 void Game::initText()
 {
-	if (!this->gameFont.loadFromFile("Fonts/Daydream.ttf"))
+	if (!this->gameFont.loadFromFile("Fonts/8-bit Arcade In.ttf"))
 	{
 		std::cout << "ERROR::FONT NOT LOADED::TEXT FONT\n";
 	}
 
 	this->gameText.setFont(this->gameFont);
-	this->gameText.setCharacterSize(15);
-	this->gameText.setPosition(10.f, 5.f);
+	this->gameText.setCharacterSize(50);
+	this->gameText.setPosition(8.f, 0);
 	this->gameText.setOutlineColor(sf::Color::Black);
 	this->gameText.setOutlineThickness(0.8f);
 
 	this->timerText.setFont(this->gameFont);
-	this->timerText.setCharacterSize(15);
-	this->timerText.setPosition(this->videoMode.x - 110.f, 5.f);
+	this->timerText.setCharacterSize(45);
+	this->timerText.setPosition(this->videoMode.x - 150.f, 5.f);
 	this->timerText.setOutlineColor(sf::Color::Black);
 	this->timerText.setOutlineThickness(0.8f);
 }
 
 void Game::initTargets()
 {
-	//target = new Target(sf::Vector2f(0.f, 0.f));
-	//target = new Target(sf::VideoMode());
-
 	this->targetSpawnTimer = 15.f;
 	this->targetLastSpawn = 0;
 	this->maxTargets = 8;
 	this->points = 0;
-
 }
 
 const bool Game::running() const
@@ -131,7 +115,6 @@ void Game::updateMousePos()
 	this->mousePos = sf::Mouse::getPosition(*this->window);
 	this->mousePos2f = this->window->mapPixelToCoords(this->mousePos);
 	//std::cout << mousePos.x << " " << mousePos.y << std::endl;
-	
 }
 
 
@@ -141,7 +124,7 @@ void Game::deleteTargets()
 	{
 		this->targets[i]->update();
 
-		//Usuwanie celu gdy bêdzie na krawêdzi ekranu
+		//Delete target at edge of the screen
 		if (this->targets[i]->Side())
 		{
 			if ((this->targets[i]->getPosition().x - this->targets[i]->getBounds().width) > this->window->getSize().x)
@@ -161,8 +144,7 @@ void Game::deleteTargets()
 		}
 
 
-		//Usuwanie celu po nacisnieciu na niego myszka
-		
+		//Dlete target after mouse click	
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			if (!this->mouseHeld)
@@ -212,12 +194,13 @@ void Game::updateTimer()
 
 	if (gameTime < 0)
 	{
-		endGame = true;
+		this->timeIsOver = true;
+		this->maxTargets = 0;
 	}
 
 	std::stringstream ss;
 	
-	ss << "Time: " << this->gameTime;
+	ss << "Time " << this->gameTime;
 
 	this->timerText.setString(ss.str());
 
@@ -227,8 +210,6 @@ void Game::renderTime(sf::RenderTarget& target)
 {
 	target.draw(this->timerText);
 }
-
-
 
 void Game::updateTargets()
 {
@@ -252,7 +233,7 @@ void Game::updateText()
 {
 	std::stringstream ss;
 
-	ss << "Points: " << this->points;
+	ss << "Points " << this->points;
 	
 	this->gameText.setString(ss.str());
 }
@@ -275,40 +256,46 @@ void Game::update()
 	this->updateTargets();
 
 	this->updateOnHit();
-	
-
-	/*for (auto *t : this->targets)
-	{
-		t->updateTarget();
-	}*/
-	//std::cout << this->targets.size() << "\n";
-	//std::cout << this->points << "\n";
-
 
 	this->deleteTargets();
+
+	if (this->timeIsOver)
+	{
+		this->updateGameSummary();
+	}
 }
 
 void Game::render()
 {
 	this->window->clear();
 
-	this->window->draw(this->background);
-
-
-	for (auto *t : this->targets)
+	if(!this->timeIsOver)
 	{
-		t->renderTarget(this->window);
+		this->window->draw(this->background);
+
+		for (auto* t : this->targets)
+		{
+			t->renderTarget(this->window);
+		}
+
+		/*this->rendetOnHit(*this->window);*/
+
+		this->renderText(*this->window);
+
+		this->renderTime(*this->window);
+
+		for (auto* i : this->onHitVector)
+		{
+			i->renderOnHitAnim(*this->window);
+		}
 	}
 
-	/*this->rendetOnHit(*this->window);*/
 
-	this->renderText(*this->window);
-
-	this->renderTime(*this->window);
-
-	for (auto *i: this->onHitVector)
+	else
 	{
-		i->renderOnHitAnim(*this->window);
+		this->window->draw(this->backgroundSummarySprite);
+
+		this->renderText(*this->window);
 	}
 
 	this->window->display();
@@ -323,10 +310,6 @@ bool Game::gameOver()
 	return false;
 }
 
-void Game::initOnHit()
-{
-	this->onHitTexture.loadFromFile("Textures/1.png");
-}
 
 void Game::updateOnHit()
 {
@@ -346,10 +329,28 @@ void Game::updateOnHit()
 		}
 	
 
+	}	
+}
+
+void Game::initSummary()
+{
+	if (!this->backgroundSummaryTexture.loadFromFile("Textures/summaryBackground.png"))
+	{
+		std::cout << "ERROR::TEXTURE NOT LOADED::SUMMARY BACKGORUND\n";
 	}
 
+	this->backgroundSummarySprite.setTexture(this->backgroundSummaryTexture);
+}
 
-	
+void Game::updateGameSummary()
+{
+	this->gameText.setPosition(300.f, 250.f);
+	this->gameText.setCharacterSize(60);
+}
+
+void Game::signIn()
+{
+
 }
 
 
