@@ -11,6 +11,7 @@ Game::Game(sf::RenderWindow * win)
 	this->initBackground();
 	this->initText();
 	this->initTargets();
+	this->initAudio();
 	this->initSummary();
 }
 
@@ -27,7 +28,7 @@ void Game::initVariables()
 	this->clear = false;
 	this->deleteLetter = false;
 	this->pointsForHit = 3;
-	this->gameTime = 1;
+	this->gameTime = 10;
 	this->counter = 0;
 }
 
@@ -320,7 +321,7 @@ void Game::pollEvents()
 				}
 
 				if (this->event.key.code == sf::Keyboard::Enter)
-				{
+				{				
 					//zapis wyniku i nicku do pliku records
 				}
 		}
@@ -374,6 +375,8 @@ void Game::deleteTargets()
 					if (this->targets[i]->getBounds().contains(this->mousePos2f))
 					{
 						deleted = true;
+
+						this->soundPoint.play();
 						
 						this->onHitVector.push_back(new OnHitAnimation(this->videoMode ,sf::Vector2f(this->targets[i]->getBounds().left + this->targets[i]->getBounds().width /2.f, this->targets[i]->getBounds().top + this->targets[i]->getBounds().height / 2.f)));
 						
@@ -413,6 +416,20 @@ void Game::updateTimer()
 		this->timeIsOver = true;
 		this->maxTargets = 0;
 		this->pointsForHit = 0;
+	}
+
+	if (gameTime == 5)
+	{
+		if (!this->loop)
+		{
+			this->sound.play();
+			this->loop = true;
+		}
+
+		else if(this->loop)
+		{
+
+		}
 	}
 
 	std::stringstream ss;
@@ -479,6 +496,8 @@ void Game::update()
 
 	this->updateOnHit();
 
+	//this->sound.play();
+
 	this->deleteTargets();
 
 	if (this->timeIsOver)
@@ -527,12 +546,6 @@ void Game::render()
 
 }
 
-bool Game::gameOver()
-{
-	return false;
-}
-
-
 void Game::updateOnHit()
 {
 	for (int i = 0; i < this->onHitVector.size(); i++)
@@ -550,6 +563,28 @@ void Game::updateOnHit()
 			break;
 		}
 	}	
+}
+
+void Game::initAudio()
+{
+	if (!this->bufferPoint.loadFromFile("Sounds/plusPoint.wav"))
+	{
+		std::cout << "ERROR::AUDIO NOT LOADED::PLUS POINT\n";
+	}
+
+	if (!this->buffer.loadFromFile("Sounds/timeTick1sec.wav"))
+	{
+		std::cout << "ERROR::AUDIO NOT LOADED::ALARM\n";
+	}
+
+	else
+	{
+		this->soundPoint.setBuffer(this->bufferPoint);
+		this->soundPoint.setVolume(15.f);
+
+		this->sound.setBuffer(this->buffer);
+		this->loop = false;
+	}
 }
 
 void Game::initSummary()

@@ -13,8 +13,9 @@
 #include "Target.h"
 #include "OnHitAnimation.h"
 
-#include <filesystem>
+#include <thread>
 
+#include <filesystem>
 #include <iostream>
 
 
@@ -30,7 +31,6 @@ class Game
 	sf::Texture backgroundTexture;
 
 	//Summary
-	
 	sf::Sprite backgroundSummarySprite;
 	sf::Texture backgroundSummaryTexture;
 
@@ -39,6 +39,15 @@ class Game
 	sf::Text summaryText;
 	bool clear;
 	bool deleteLetter;
+
+	//Audio
+	sf::SoundBuffer buffer;
+	sf::Sound sound;
+	sf::SoundBuffer bufferPoint;
+	sf::Sound soundPoint;
+
+	bool loop;
+
 	
 
 	//Targets
@@ -87,33 +96,40 @@ public:
 	~Game();
 
 	//Functions 
+	//Basic
 	const bool running() const;
 	
 	void pollEvents();
 	void updateMousePos();
 
+	//Text
 	void updateText();
 	void renderText(sf::RenderTarget & target);
 
 	void updateTimer();
 	void renderTime(sf::RenderTarget & target);
 
+	//Cursor
 	void initCursor();
 
+	//Targets
 	void initTargets();
 	void deleteTargets();
 	void updateTargets();
 
-	bool gameOver();
-
+	//OnHitAnimation
 	void updateOnHit();
 
+	//Audio
+	void initAudio();
 
+
+	//Summary
 	void initSummary();
 	void updateGameSummary();
-
 	void signIn();
 
+	//Render/Update
 	void update();
 	void render();
 };

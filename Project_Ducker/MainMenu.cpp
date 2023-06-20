@@ -190,7 +190,6 @@ void MainMenu::createScoreFile()
 		std::filesystem::create_directory("Scoreboard/");
 		std::ofstream file("Scoreboard/records.txt");
 	}
-
 }
 
 int MainMenu::decision()
