@@ -301,10 +301,16 @@ void Game::pollEvents()
 
 				if (this->event.key.code == sf::Keyboard::Backspace)
 				{
-					if(this->nickVector.size() == 0)
+					/*if(this->nickVector.size() == 0)
+					{
+						break;
+					}*/
+
+					if(this->ssKeyboardWord.str().length() == 0)
 					{
 						break;
 					}
+
 
 					std::string popper;
 					popper = ssKeyboardWord.str();
