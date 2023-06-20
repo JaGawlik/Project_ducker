@@ -17,6 +17,8 @@ MainMenu::MainMenu(sf::RenderWindow* wind)
 	this->initBackground();
 	this->initHover();
 	this->hoverText = false;
+
+	this->createScoreFile();
 }
 
 MainMenu::~MainMenu()
@@ -174,6 +176,21 @@ void MainMenu::showMenu()
 	{
 		this->window->draw(this->menuVector[i]);
 	}
+}
+
+void MainMenu::createScoreFile()
+{
+	if (std::filesystem::exists("Scoreboard"))
+	{
+		std::ofstream file("Scoreboard/records.txt");
+	}
+
+	else
+	{
+		std::filesystem::create_directory("Scoreboard/");
+		std::ofstream file("Scoreboard/records.txt");
+	}
+
 }
 
 int MainMenu::decision()

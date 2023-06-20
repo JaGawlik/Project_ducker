@@ -97,7 +97,6 @@ const bool Game::running() const
 	return this->window->isOpen();
 }
 
-
 void Game::pollEvents()
 {
 	while (this->window->pollEvent(this->event))
@@ -301,6 +300,7 @@ void Game::pollEvents()
 				}
 
 			}
+
 				if (this->event.key.code == sf::Keyboard::Backspace)
 				{
 					if(this->ssKeyboardWord.str().length() == 0)
@@ -333,7 +333,6 @@ void Game::updateMousePos()
 	this->mousePos2f = this->window->mapPixelToCoords(this->mousePos);
 	//std::cout << mousePos.x << " " << mousePos.y << std::endl;
 }
-
 
 void Game::deleteTargets()
 {
@@ -575,11 +574,6 @@ void Game::signIn()
 {
 	this->summaryText.setCharacterSize(60);
 	
-	/*if (this->ssKeyboardWord.str().length() == 5)
-	{
-		this->ssKeyboardWord.str().max_size();
-	}*/
-
 	if (this->nickVector.size() != 0 && this->clear == false)
 	{
 		this->ssKeyboardWord.str("");

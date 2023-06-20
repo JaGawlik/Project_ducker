@@ -6,15 +6,14 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 
-#include <thread>
-
 #include <sstream>
 #include <chrono>
-
-#include <Windows.h>
+#include <fstream>
 
 #include "Target.h"
 #include "OnHitAnimation.h"
+
+#include <filesystem>
 
 #include <iostream>
 

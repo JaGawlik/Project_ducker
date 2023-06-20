@@ -53,6 +53,8 @@ public:
 
 	void showMenu();
 
+	void createScoreFile();
+
 	//void renderGame();
 
 	int decision();
