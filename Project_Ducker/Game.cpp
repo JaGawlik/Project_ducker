@@ -116,6 +116,7 @@ void Game::pollEvents()
 			}
 
 			//Keyboard coding
+			if (this->ssKeyboardWord.str().length() < 5)
 			{
 				if (this->event.key.code == sf::Keyboard::A)
 				{
@@ -299,30 +300,29 @@ void Game::pollEvents()
 					break;
 				}
 
+			}
 				if (this->event.key.code == sf::Keyboard::Backspace)
 				{
-					/*if(this->nickVector.size() == 0)
-					{
-						break;
-					}*/
-
 					if(this->ssKeyboardWord.str().length() == 0)
 					{
 						break;
 					}
 
-
-					std::string popper;
-					popper = ssKeyboardWord.str();
-					popper.pop_back();
+					std::string pop;
+					pop = ssKeyboardWord.str();
+					pop.pop_back();
 
 					ssKeyboardWord.str("");
 
-					ssKeyboardWord << popper;
+					ssKeyboardWord << pop;
 
 					break;
 				}
-			}
+
+				if (this->event.key.code == sf::Keyboard::Enter)
+				{
+					//zapis wyniku i nicku do pliku records
+				}
 		}
 	}
 }
@@ -550,8 +550,6 @@ void Game::updateOnHit()
 			this->onHitVector.erase(this->onHitVector.begin() + i);
 			break;
 		}
-	
-
 	}	
 }
 
@@ -577,13 +575,17 @@ void Game::signIn()
 {
 	this->summaryText.setCharacterSize(60);
 	
+	/*if (this->ssKeyboardWord.str().length() == 5)
+	{
+		this->ssKeyboardWord.str().max_size();
+	}*/
 
 	if (this->nickVector.size() != 0 && this->clear == false)
 	{
 		this->ssKeyboardWord.str("");
-		
+
 		this->nickVector.clear();
-		
+
 		this->clear = true;
 	}
 
@@ -596,9 +598,4 @@ void Game::signIn()
 
 	this->summaryText.setPosition(((this->window->getSize().x) - (ssKeyboardWord.str().length() * 30.f)) / 2, 400.f);
 }
-
-
-
-
-
 
