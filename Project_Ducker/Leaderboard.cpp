@@ -6,7 +6,7 @@ Leaderboard::Leaderboard(sf::RenderWindow* win)
 
 	this->initFont();
 	this->initBackground();
-	
+	this->loadData();
 }
 
 Leaderboard::~Leaderboard()
@@ -18,16 +18,35 @@ void Leaderboard::loadData()
 {
 	std::ifstream file("Scoreboard/records.txt");
 
-	if (file.is_open())
+	if (!file.is_open())
+	{
+		std::cout << "ERROR::THE SAVE FILE CAN NOT BE OPENED\n";
+	}
+
+	else
 	{
 		std::string line;
 
 		while (std::getline(file, line))
 		{
+			std::stringstream ss;
+			ss << line;
 
+			this->leaderboardText.setString(ss.str());
+
+			this->leadersVector.push_back(this->leaderboardText);
 		}
 
 		file.close();
+	}
+}
+
+void Leaderboard::showLeaders()
+{
+	for (int i = 0; i < this->leadersVector.size(); i++)
+	{
+		this->leadersVector[i].setPosition(((this->window->getSize().x - this->leadersVector[i].getGlobalBounds().width) / 2), (230.f + i * (this->leadersVector[i].getGlobalBounds().height + 25.f)));
+		this->window->draw(this->leadersVector[i]);
 	}
 }
 
@@ -41,6 +60,9 @@ void Leaderboard::initFont()
 	else
 	{
 		this->leaderboardText.setFont(this->leaderboardFont);
+		this->leaderboardText.setCharacterSize(50);
+		this->leaderboardText.setOutlineThickness(0.8f);
+		this->leaderboardText.setOutlineColor(sf::Color::Black);
 	}
 }
 
@@ -70,7 +92,6 @@ void Leaderboard::action()
 		if (this->event.key.code == sf::Keyboard::Escape)
 		{
 			//powrot do menu
-			
 		}
 	}
 }
@@ -79,6 +100,7 @@ void Leaderboard::action()
 void Leaderboard::update()
 {
 	this->action();
+
 }
 
 void Leaderboard::render()
@@ -87,6 +109,7 @@ void Leaderboard::render()
 
 	this->window->draw(this->backgroundSprite);
 
+	this->showLeaders();
 
 	this->window->display();
 }

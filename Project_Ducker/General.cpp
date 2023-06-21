@@ -37,11 +37,16 @@ void General::update()
 	if (menu->decision() == 0)
 	{
 		this->menu->update();
+		
 	}
 
 	if (menu->decision() == 1)
 	{
 		this->game->update();
+		if (this->game->backToMenu())
+		{
+			this->menu->decision()
+		}
 	}
 
 	if (menu->decision() == 2)

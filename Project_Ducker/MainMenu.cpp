@@ -179,12 +179,7 @@ void MainMenu::showMenu()
 
 void MainMenu::createScoreFile()
 {
-	if (std::filesystem::exists("Scoreboard"))
-	{
-		std::ofstream file("Scoreboard/records.txt");
-	}
-
-	else
+	if (!std::filesystem::exists("Scoreboard"))
 	{
 		std::filesystem::create_directory("Scoreboard/");
 		std::ofstream file("Scoreboard/records.txt");

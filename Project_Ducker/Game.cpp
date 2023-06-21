@@ -23,12 +23,13 @@ Game::~Game()
 
 void Game::initVariables()
 {
+	this->menuBack = false;
 	this->mouseHeld = false;
 	this->timeIsOver = false;
 	this->clear = false;
 	this->deleteLetter = false;
 	this->pointsForHit = 3;
-	this->gameTime = 10;
+	this->gameTime = 1;
 	this->counter = 0;
 }
 
@@ -322,7 +323,9 @@ void Game::pollEvents()
 
 				if (this->event.key.code == sf::Keyboard::Enter)
 				{				
-					//zapis wyniku i nicku do pliku records
+					this->saveToFile();
+					this->menuBack = true;
+					//powrot do menu
 				}
 		}
 	}
@@ -416,6 +419,7 @@ void Game::updateTimer()
 		this->timeIsOver = true;
 		this->maxTargets = 0;
 		this->pointsForHit = 0;
+		this->soundPoint.setVolume(0);
 	}
 
 	if (gameTime == 5)
@@ -545,6 +549,7 @@ void Game::signIn()
 {
 	this->summaryText.setCharacterSize(60);
 	
+
 	if (this->nickVector.size() != 0 && this->clear == false)
 	{
 		this->ssKeyboardWord.str("");
@@ -563,6 +568,57 @@ void Game::signIn()
 
 	this->summaryText.setPosition(((this->window->getSize().x) - (ssKeyboardWord.str().length() * 30.f)) / 2, 400.f);
 }
+
+void Game::saveToFile()
+{
+	std::ifstream file("Scoreboard/records.txt");
+
+	if (!file.is_open())
+	{
+		std::cout << "ERROR::THE SAVE FILE CAN NOT BE OPENED\n";
+	}
+
+	else
+	{
+		this->loadData();
+
+
+		//file << this->ssKeyboardWord.str() << this->points << std::endl;
+
+	}
+}
+
+void Game::loadData()
+{
+
+	std::ifstream file("Scoreboard/records.txt");
+
+	if (file.is_open())
+	{
+		std::string line;
+		std::stringstream ss;
+
+		while (std::getline(file, line))
+		{
+			
+			
+		}
+
+		file.close();
+	}
+
+	else
+	{
+		std::cout << "ERROR::THE SAVE FILE CAN NOT BE OPENED\n";
+	}
+}
+
+bool Game::backToMenu()
+{
+	return true;
+}
+
+
 
 void Game::update()
 {
@@ -625,4 +681,5 @@ void Game::render()
 	//std::cout << this->targets.size() << "\n";
 
 }
+
 

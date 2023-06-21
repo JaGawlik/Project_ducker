@@ -25,7 +25,7 @@ class Leaderboard
 	sf::Sprite backgroundSprite;
 	sf::Texture backgroundTexture;
 
-	bool back;
+	std::vector <sf::Text> leadersVector;
 
 public:
 
@@ -34,6 +34,7 @@ public:
 
 	//Data reading
 	void loadData();
+	void showLeaders();
 
 	//Font
 	void initFont();

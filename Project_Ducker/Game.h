@@ -91,6 +91,8 @@ class Game
 	void initBackground();
 	void initText();
 
+	bool menuBack;
+
 public:
 
 	//Constructors
@@ -130,6 +132,10 @@ public:
 	void initSummary();
 	void updateGameSummary();
 	void signIn();
+	void saveToFile();
+	void loadData();
+
+	bool backToMenu();
 
 	//Render/Update
 	void update();
