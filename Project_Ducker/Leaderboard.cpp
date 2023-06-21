@@ -6,46 +6,37 @@ Leaderboard::Leaderboard(sf::RenderWindow* win)
 
 	this->initFont();
 	this->initBackground();
-	this->loadData();
+
+
 }
 
 Leaderboard::~Leaderboard()
 {
-	this->window;
+
 }
 
-void Leaderboard::loadData()
-{
-	std::ifstream file("Scoreboard/records.txt");
-
-	if (!file.is_open())
-	{
-		std::cout << "ERROR::THE SAVE FILE CAN NOT BE OPENED\n";
-	}
-
-	else
-	{
-		std::string line;
-
-		while (std::getline(file, line))
-		{
-			std::stringstream ss;
-			ss << line;
-
-			this->leaderboardText.setString(ss.str());
-
-			this->leadersVector.push_back(this->leaderboardText);
-		}
-
-		file.close();
-	}
-}
 
 void Leaderboard::showLeaders()
 {
-	for (int i = 0; i < this->leadersVector.size(); i++)
+	ScoreDB db;
+
+	for (int i = 0; i < 5; i++)
 	{
+		sf::Text text;
+		
+		text.setFont(this->leaderboardFont);
+		text.setCharacterSize(50);
+		text.setOutlineThickness(0.8f);
+		text.setOutlineColor(sf::Color::Black);
+
+		this->leadersVector.push_back(text);
+
+		std::stringstream ss;
+		ss << db.getVector()[i].name << " " << db.getVector()[i].points;
+		this->leadersVector[i].setString(ss.str());
+
 		this->leadersVector[i].setPosition(((this->window->getSize().x - this->leadersVector[i].getGlobalBounds().width) / 2), (230.f + i * (this->leadersVector[i].getGlobalBounds().height + 25.f)));
+
 		this->window->draw(this->leadersVector[i]);
 	}
 }
@@ -60,9 +51,6 @@ void Leaderboard::initFont()
 	else
 	{
 		this->leaderboardText.setFont(this->leaderboardFont);
-		this->leaderboardText.setCharacterSize(50);
-		this->leaderboardText.setOutlineThickness(0.8f);
-		this->leaderboardText.setOutlineColor(sf::Color::Black);
 	}
 }
 
@@ -91,7 +79,7 @@ void Leaderboard::action()
 
 		if (this->event.key.code == sf::Keyboard::Escape)
 		{
-			//powrot do menu
+			this->backToMenu = true;
 		}
 	}
 }
@@ -112,4 +100,19 @@ void Leaderboard::render()
 	this->showLeaders();
 
 	this->window->display();
+}
+
+void Leaderboard::showDB()
+{
+	ScoreDB db;
+
+	for (int i = 0; i < db.getVector().size(); i++)
+	{
+		db.getVector()[i].name;
+	}
+}
+
+bool Leaderboard::comeback()
+{
+	return this->backToMenu;
 }

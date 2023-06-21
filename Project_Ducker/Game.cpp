@@ -17,13 +17,11 @@ Game::Game(sf::RenderWindow * win)
 
 Game::~Game()
 {
-	delete this->window;
 	delete this->target;
 }
 
 void Game::initVariables()
 {
-	this->menuBack = false;
 	this->mouseHeld = false;
 	this->timeIsOver = false;
 	this->clear = false;
@@ -112,7 +110,7 @@ void Game::pollEvents()
 		case sf::Event::KeyPressed:
 			if (this->event.key.code == sf::Keyboard::Escape)
 			{
-				this->window->close();
+				backToMenu = true;
 				break;
 			}
 
@@ -303,6 +301,20 @@ void Game::pollEvents()
 
 			}
 
+			if (this->gameTime < 0)
+			{
+				if (this->event.key.code == sf::Keyboard::Enter)
+				{
+					Score sc(ssKeyboardWord.str(), this->points);
+					ScoreDB db;
+
+					db.addScore(sc);
+
+					this->backToMenu = true;
+				}
+			}
+			
+
 				if (this->event.key.code == sf::Keyboard::Backspace)
 				{
 					if(this->ssKeyboardWord.str().length() == 0)
@@ -321,14 +333,10 @@ void Game::pollEvents()
 					break;
 				}
 
-				if (this->event.key.code == sf::Keyboard::Enter)
-				{				
-					this->saveToFile();
-					this->menuBack = true;
-					//powrot do menu
-				}
+				
 		}
 	}
+
 }
 
 void Game::updateMousePos()
@@ -569,57 +577,6 @@ void Game::signIn()
 	this->summaryText.setPosition(((this->window->getSize().x) - (ssKeyboardWord.str().length() * 30.f)) / 2, 400.f);
 }
 
-void Game::saveToFile()
-{
-	std::ifstream file("Scoreboard/records.txt");
-
-	if (!file.is_open())
-	{
-		std::cout << "ERROR::THE SAVE FILE CAN NOT BE OPENED\n";
-	}
-
-	else
-	{
-		this->loadData();
-
-
-		//file << this->ssKeyboardWord.str() << this->points << std::endl;
-
-	}
-}
-
-void Game::loadData()
-{
-
-	std::ifstream file("Scoreboard/records.txt");
-
-	if (file.is_open())
-	{
-		std::string line;
-		std::stringstream ss;
-
-		while (std::getline(file, line))
-		{
-			
-			
-		}
-
-		file.close();
-	}
-
-	else
-	{
-		std::cout << "ERROR::THE SAVE FILE CAN NOT BE OPENED\n";
-	}
-}
-
-bool Game::backToMenu()
-{
-	return true;
-}
-
-
-
 void Game::update()
 {
 	this->pollEvents();
@@ -680,6 +637,12 @@ void Game::render()
 	//std::cout << this->onHitVector.size() << "\n";
 	//std::cout << this->targets.size() << "\n";
 
+}
+
+
+bool Game::comeback()
+{
+	return this->backToMenu;
 }
 
 

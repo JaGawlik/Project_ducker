@@ -12,6 +12,8 @@
 #include <string>
 #include <iostream>
 
+#include "ScoreDB.h"
+
 class Leaderboard
 {
 	sf::RenderWindow* window;
@@ -32,10 +34,6 @@ public:
 	Leaderboard(sf::RenderWindow *);
 	~Leaderboard();
 
-	//Data reading
-	void loadData();
-	void showLeaders();
-
 	//Font
 	void initFont();
 
@@ -43,8 +41,14 @@ public:
 	void initBackground();
 
 	void action();
+	void showLeaders();
 
 	void update();
 	void render();
+
+	void showDB();
+
+	bool comeback();
+	bool backToMenu;
 };
 

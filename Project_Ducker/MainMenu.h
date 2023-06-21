@@ -58,7 +58,7 @@ public:
 
 	//Leaderboard
 	
-
+	void setDecision(int);
 	
 	void update();
 	void render();

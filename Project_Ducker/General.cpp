@@ -25,11 +25,12 @@ void General::initGeneralWindow()
 	this->window = new sf::RenderWindow(resolution, "Kurka Wodna", sf::Style::Close | sf::Style::Titlebar);
 
 	this->window->setFramerateLimit(30);
+}
 
-	/*this->menuMode = true;
-	this->gameMode = false;
-	this->scoreboardMode = false;
-	this->optionsMode = false;	*/
+void General::reInit()
+{
+	delete this->game;
+	this->game = new Game(this->window);
 }
 
 void General::update()
@@ -37,21 +38,35 @@ void General::update()
 	if (menu->decision() == 0)
 	{
 		this->menu->update();
-		
 	}
 
 	if (menu->decision() == 1)
 	{
-		this->game->update();
-		if (this->game->backToMenu())
+		if (!this->game->comeback())
 		{
-			this->menu->decision()
+			this->game->update();
+		}
+
+		else
+		{
+			this->menu->setDecision(0);
+			this->game->backToMenu = false;
+			this->reInit();
 		}
 	}
 
 	if (menu->decision() == 2)
 	{
-		this->leaderboard->update();
+		if (!this->leaderboard->comeback())
+		{
+			this->leaderboard->update();
+		}
+
+		else
+		{
+			this->menu->setDecision(0);
+			this->leaderboard->backToMenu = false;
+		}
 	}
 }
 

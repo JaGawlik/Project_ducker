@@ -12,8 +12,8 @@
 
 #include "Target.h"
 #include "OnHitAnimation.h"
-
-#include <thread>
+#include "Score.h"
+#include "ScoreDB.h"
 
 #include <filesystem>
 #include <iostream>
@@ -91,7 +91,7 @@ class Game
 	void initBackground();
 	void initText();
 
-	bool menuBack;
+	std::vector<Score> scoreVector;
 
 public:
 
@@ -133,12 +133,15 @@ public:
 	void updateGameSummary();
 	void signIn();
 	void saveToFile();
-	void loadData();
-
-	bool backToMenu();
+	//void loadData();
 
 	//Render/Update
 	void update();
 	void render();
+
+	
+
+	bool comeback();
+	bool backToMenu;
 };
 

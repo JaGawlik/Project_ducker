@@ -26,8 +26,6 @@ MainMenu::~MainMenu()
 
 }
 
-
-
 void MainMenu::initWindow()
 {
 	//std::ifstream fstrem("Config/window.init");
@@ -93,7 +91,7 @@ void MainMenu::menuMngr()
 
 	while (this->window->pollEvent(this->choice))
 	{
-		if (this->choice.type == sf::Event::Closed || this->choice.key.code == sf::Keyboard::Escape)
+		if (this->choice.type == sf::Event::Closed /*|| this->choice.key.code == sf::Keyboard::Escape*/)
 		{
 			this->window->close();
 		}
@@ -105,6 +103,7 @@ void MainMenu::menuMngr()
 				if (playText.getGlobalBounds().contains(mousePos2f))
 				{
 					std::cout << "Wybrano play";
+					
 					this->deci = 1;
 				}
 
@@ -186,11 +185,14 @@ void MainMenu::createScoreFile()
 	}
 }
 
-
-
 int MainMenu::decision()
 {
 	return this->deci;
+}
+
+void MainMenu::setDecision(int dec)
+{
+	this->deci = dec;
 }
 
 void MainMenu::update()

@@ -140,6 +140,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="OnHitAnimation.cpp" />
+    <ClCompile Include="Score.cpp" />
+    <ClCompile Include="ScoreDB.cpp" />
     <ClCompile Include="Target.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +150,8 @@
     <ClInclude Include="Leaderboard.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="OnHitAnimation.h" />
+    <ClInclude Include="Score.h" />
+    <ClInclude Include="ScoreDB.h" />
     <ClInclude Include="Target.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -15,8 +15,7 @@ class General
 	
 	std::filesystem::path path;
 
-	int decisss;
-
+	
 	/*bool menuMode;
 	bool gameMode;
 	bool scoreboardMode;
@@ -30,6 +29,8 @@ public:
 	const bool running();
 
 	void initGeneralWindow();
+
+	void reInit();
 
 	void update();
 	void render();
