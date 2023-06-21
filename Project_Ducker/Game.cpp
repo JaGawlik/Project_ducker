@@ -482,70 +482,6 @@ void Game::renderText(sf::RenderTarget& target)
 	}
 }
 
-void Game::update()
-{
-	this->pollEvents();
-
-	this->updateMousePos();
-	
-	this->updateText();
-
-	this->updateTimer();
-
-	this->updateTargets();
-
-	this->updateOnHit();
-
-	//this->sound.play();
-
-	this->deleteTargets();
-
-	if (this->timeIsOver)
-	{
-		this->updateGameSummary();
-	}
-}
-
-void Game::render()
-{
-	this->window->clear();
-
-	if(!this->timeIsOver)
-	{
-		this->window->draw(this->background);
-
-		for (auto* t : this->targets)
-		{
-			t->renderTarget(this->window);
-		}
-
-		/*this->rendetOnHit(*this->window);*/
-
-		this->renderText(*this->window);
-
-		this->renderTime(*this->window);
-
-		for (auto* i : this->onHitVector)
-		{
-			i->renderOnHitAnim(*this->window);
-		}
-	}
-
-
-	else
-	{
-		this->window->draw(this->backgroundSummarySprite);
-
-		this->renderText(*this->window);
-	}
-
-	this->window->display();
-
-	//std::cout << this->onHitVector.size() << "\n";
-	//std::cout << this->targets.size() << "\n";
-
-}
-
 void Game::updateOnHit()
 {
 	for (int i = 0; i < this->onHitVector.size(); i++)
@@ -626,5 +562,67 @@ void Game::signIn()
 	}
 
 	this->summaryText.setPosition(((this->window->getSize().x) - (ssKeyboardWord.str().length() * 30.f)) / 2, 400.f);
+}
+
+void Game::update()
+{
+	this->pollEvents();
+
+	this->updateMousePos();
+
+	this->updateText();
+
+	this->updateTimer();
+
+	this->updateTargets();
+
+	this->updateOnHit();
+
+	this->deleteTargets();
+
+	if (this->timeIsOver)
+	{
+		this->updateGameSummary();
+	}
+}
+
+void Game::render()
+{
+	this->window->clear();
+
+	if (!this->timeIsOver)
+	{
+		this->window->draw(this->background);
+
+		for (auto* t : this->targets)
+		{
+			t->renderTarget(this->window);
+		}
+
+	
+
+		this->renderText(*this->window);
+
+		this->renderTime(*this->window);
+
+		for (auto* i : this->onHitVector)
+		{
+			i->renderOnHitAnim(*this->window);
+		}
+	}
+
+
+	else
+	{
+		this->window->draw(this->backgroundSummarySprite);
+
+		this->renderText(*this->window);
+	}
+
+	this->window->display();
+
+	//std::cout << this->onHitVector.size() << "\n";
+	//std::cout << this->targets.size() << "\n";
+
 }
 

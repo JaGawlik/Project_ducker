@@ -4,15 +4,13 @@
 
 #include <iostream>
 #include <vector>
-#include <fstream>
+//#include <fstream>
 #include <sstream>
 
 #include "Game.h"
 
 class MainMenu
 {
-	//sf::VideoMode resolution;
-
 	sf::RenderWindow* window;
 	sf::Event choice;
 
@@ -31,10 +29,9 @@ class MainMenu
 	sf::Sprite hoverSprite;
 	sf::Texture hoverTexture;
 	sf::IntRect currentHoverFrame;
+	bool hoverText;
 
 	unsigned int deci; //0 menu, 1 game, 2 scoreboard, 3 options
-
-	bool hoverText;
 	
 public:
 
@@ -42,22 +39,26 @@ public:
 	~MainMenu();
 
 	const bool running();
-
+	
+	//Menu
 	void initWindow();
 	void menuMngr();
+	void showMenu();
+	int decision();
 
+	//Background
 	void initBackground();
 
+	//Hover
 	void initHover();
 	void updateHover();
 
-	void showMenu();
-
+	//Score file
 	void createScoreFile();
 
-	//void renderGame();
+	//Leaderboard
+	
 
-	int decision();
 	
 	void update();
 	void render();

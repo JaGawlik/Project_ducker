@@ -5,6 +5,7 @@ General::General()
 	this->initGeneralWindow();
 	this->menu = new MainMenu(this->window);
 	this->game = new Game(this->window);
+	this->leaderboard = new Leaderboard(this->window);
 }
 
 General::~General()
@@ -42,6 +43,11 @@ void General::update()
 	{
 		this->game->update();
 	}
+
+	if (menu->decision() == 2)
+	{
+		this->leaderboard->update();
+	}
 }
 
 void General::render()
@@ -54,6 +60,11 @@ void General::render()
 	if (menu->decision() == 1)
 	{
 		this->game->render();
+	}
+
+	if (menu->decision() == 2)
+	{
+		this->leaderboard->render();
 	}
 
 

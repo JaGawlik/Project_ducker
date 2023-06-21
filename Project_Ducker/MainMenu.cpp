@@ -30,13 +30,13 @@ MainMenu::~MainMenu()
 
 void MainMenu::initWindow()
 {
-	std::ifstream fstrem("Config/window.init");
+	//std::ifstream fstrem("Config/window.init");
 
 	sf::VideoMode resolution(800.f, 600.f);
 
 	if (!this->menuFont.loadFromFile("Fonts/8-bit Arcade In.ttf"))
 	{
-		std::cout << "Nie zaladowano fontu";
+		std::cout << "ERROR::FONT NOT LOADED::MENU FONT\n";
 	}
 }
 
@@ -102,8 +102,6 @@ void MainMenu::menuMngr()
 		{
 			if (this->choice.mouseButton.button == sf::Mouse::Left)
 			{
-
-
 				if (playText.getGlobalBounds().contains(mousePos2f))
 				{
 					std::cout << "Wybrano play";
@@ -113,6 +111,7 @@ void MainMenu::menuMngr()
 				else if (scText.getGlobalBounds().contains(mousePos2f))
 				{
 					std::cout << "Wybrano scoreboard";
+					this->deci = 2;
 				}
 
 				else if (optionsText.getGlobalBounds().contains(mousePos2f))
@@ -191,6 +190,8 @@ void MainMenu::createScoreFile()
 		std::ofstream file("Scoreboard/records.txt");
 	}
 }
+
+
 
 int MainMenu::decision()
 {

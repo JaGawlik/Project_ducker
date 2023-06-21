@@ -22,6 +22,9 @@
 
 class Game
 {
+	//Decision
+	unsigned int decision;
+
 	//sf::VideoMode videoMode;
 	sf::Vector2f videoMode;
 	sf::RenderWindow* window;
@@ -45,7 +48,6 @@ class Game
 	sf::Sound sound;
 	sf::SoundBuffer bufferPoint;
 	sf::Sound soundPoint;
-
 	bool loop;
 
 	
@@ -92,7 +94,7 @@ class Game
 public:
 
 	//Constructors
-	Game(sf::RenderWindow *);
+	Game(sf::RenderWindow*);
 	~Game();
 
 	//Functions 
