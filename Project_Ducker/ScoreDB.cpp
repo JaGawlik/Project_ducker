@@ -11,35 +11,6 @@ ScoreDB::~ScoreDB()
 	this->saveDB();
 }
 
-//void ScoreDB::checkDB()
-//{
-//	std::regex nameCheck("[a-zA-Z]{1,5}");
-//	std::regex pointsCheck("[0-9]{1,3}");
-//
-//	std::regex eraseFromName("[0-9]");
-//	std::regex eraseFromPoints("[a-zA-Z]");
-//
-//
-//	if (!std::regex_match(scoreboardName, nameCheck) || std::regex_match(regexPoints, pointsCheck))
-//	{
-//		if (!std::regex_match(scoreboardName, nameCheck))
-//		{
-//			std::regex_replace(scoreboardName, eraseFromName, "");
-//		}
-//
-//		else if (!std::regex_match(regexPoints, pointsCheck))
-//		{
-//			std::regex_replace(regexPoints, eraseFromPoints, "");
-//		}
-//
-//		else if (!std::regex_match(scoreboardName, nameCheck) && std::regex_match(regexPoints, pointsCheck))
-//		{
-//			std::regex_replace(scoreboardName, eraseFromName, "");
-//			std::regex_replace(regexPoints, eraseFromPoints, "");
-//		}
-//	}
-//}
-
 void ScoreDB::loadDB()
 {
 	std::ifstream file("Scoreboard/records.txt");

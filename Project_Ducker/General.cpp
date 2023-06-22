@@ -12,6 +12,7 @@ General::~General()
 {
 	delete this->menu;
 	delete this->game;
+	delete this->leaderboard;
 }
 
 const bool General::running()
