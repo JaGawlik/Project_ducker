@@ -15,7 +15,7 @@ Target::Target(sf::Vector2f vMode)
 	this->initAnimation();
 	
 	this->spawnTarget();
-	this->speed = 1.2f;
+	this->speed = 1.4f;
 }
 
 Target::~Target()

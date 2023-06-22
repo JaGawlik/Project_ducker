@@ -5,7 +5,6 @@ const bool MainMenu::running()
 	return this->window->isOpen();
 }
 
-
 MainMenu::MainMenu(sf::RenderWindow* wind)
 {
 	this->window = wind;
@@ -91,20 +90,16 @@ void MainMenu::menuMngr()
 			{
 				if (playText.getGlobalBounds().contains(mousePos2f))
 				{
-					std::cout << "Wybrano play";
-					
 					this->deci = 1;
 				}
 
 				else if (scText.getGlobalBounds().contains(mousePos2f))
 				{
-					std::cout << "Wybrano scoreboard";
 					this->deci = 2;
 				}
 
 				else if (exitText.getGlobalBounds().contains(mousePos2f))
 				{
-					std::cout << "Wybrano exit";
 					this->window->close();
 				}
 			}

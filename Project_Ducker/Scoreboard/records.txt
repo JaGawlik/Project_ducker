@@ -1,4 +1,6 @@
+kozak/213
 test/144
+ja/141
 ok/80
 oki/70
 tuzle/54

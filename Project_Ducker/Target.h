@@ -1,11 +1,6 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
-
 
 #include <Windows.h>
 #include <iostream>
@@ -15,6 +10,7 @@
 
 class Target
 {
+
 	sf::Sprite sprite;
 	sf::Texture texture;
 
@@ -37,11 +33,9 @@ class Target
 	int maxTargets;
 	bool LeftRight; //ture from left side
 	
-	bool Side();
 
 public:
 
-	//Target(sf::VideoMode);
 	Target(sf::Vector2f);
 	~Target();
 
@@ -50,6 +44,7 @@ public:
 	
 	//Spawning
 	void spawnTarget();
+	bool Side();
 	
 	//Animation
 	void updateMovement();

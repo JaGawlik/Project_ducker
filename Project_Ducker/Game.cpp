@@ -27,7 +27,7 @@ void Game::initVariables()
 	this->clear = false;
 	this->deleteLetter = false;
 	this->pointsForHit = 3;
-	this->gameTime = 25;
+	this->gameTime = 30;
 	this->counter = 0;
 }
 
@@ -86,9 +86,9 @@ void Game::initText()
 
 void Game::initTargets()
 {
-	this->targetSpawnTimer = 15.f;
+	this->targetSpawnTimer = 12.f;
 	this->targetLastSpawn = 0;
-	this->maxTargets = 8;
+	this->maxTargets = 10;
 	this->points = 0;
 }
 
@@ -313,7 +313,6 @@ void Game::pollEvents()
 					this->backToMenu = true;
 				}
 			}
-
 				if (this->event.key.code == sf::Keyboard::Backspace)
 				{
 					if(this->ssKeyboardWord.str().length() == 0)
@@ -634,7 +633,6 @@ void Game::render()
 	//std::cout << this->targets.size() << "\n";
 
 }
-
 
 bool Game::comeback()
 {
