@@ -24,17 +24,21 @@ class Target
 	sf::Clock animationTimer;
 	sf::IntRect currentFrame;
 
+	//Init
 	void initTexture();
 	void initSprite();
 	void initAnimation();
 
+	//Values
 	float speed;
 	int typeTarget;
 	float targetSpawnTimer;
 	float targetLastSpawn;
 	int maxTargets;
-	bool LeftRight; //ture od lewej
+	bool LeftRight; //ture from left side
 	
+	bool Side();
+
 public:
 
 	//Target(sf::VideoMode);
@@ -43,16 +47,18 @@ public:
 
 	sf::FloatRect getBounds();
 	sf::Vector2f getPosition();
-	bool Side();
 	
-	void renderTarget(sf::RenderTarget* tar);
+	//Spawning
+	void spawnTarget();
 	
+	//Animation
 	void updateMovement();
 	void updateAnimation();
 
+	//Update/Render
 	void update();
+	void renderTarget(sf::RenderTarget* tar);
 
-	void spawnTarget();
 
 };
 

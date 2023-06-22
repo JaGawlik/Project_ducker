@@ -67,8 +67,11 @@ class Game
 	std::vector <Target*> targets;
 	Target* target;
 
+	//Text
 	sf::Text pointText;
 	sf::Font gameFont;
+
+	//SignIn
 	std::vector <std::string> nickVector;
 
 	//Timer
@@ -100,6 +103,7 @@ public:
 	~Game();
 
 	//Functions 
+	
 	//Basic
 	const bool running() const;
 	

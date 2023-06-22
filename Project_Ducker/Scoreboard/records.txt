@@ -1,3 +1,4 @@
+test/144
 ok/80
 oki/70
 tuzle/54

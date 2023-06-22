@@ -13,13 +13,6 @@ class General
 	Game* game;
 	Leaderboard* leaderboard;
 	
-	std::filesystem::path path;
-
-	
-	/*bool menuMode;
-	bool gameMode;
-	bool scoreboardMode;
-	bool optionsMode;*/
 
 public:
 
@@ -28,10 +21,11 @@ public:
 
 	const bool running();
 
+	//Init
 	void initGeneralWindow();
-
 	void reInit();
 
+	//Update/Render
 	void update();
 	void render();
 };

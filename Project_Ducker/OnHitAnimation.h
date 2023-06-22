@@ -25,29 +25,25 @@ class OnHitAnimation
 	sf::IntRect currentFrame;
 
 	void center();
+	bool getEndScreen();
 
 public:
-	//OnHitAnimation(sf::VideoMode,sf::Vector2f);
+
 	OnHitAnimation(sf::Vector2f, sf::Vector2f);
 	~OnHitAnimation();
 
-	void updateOnHit(std::vector <OnHitAnimation*>);
-
-	void initOnHit();
-	void renderOnHitAnim(sf::RenderTarget& target);
-
-	bool getEndScreen();
-
+	//Init
 	void initSprite();
-	void updateAnimation();
+	void initOnHit();
 
+	//Update
+	void updateAnimation();
 	void move(sf::Vector2f);
 
+	//Update/Render
+	void updateOnHit(std::vector <OnHitAnimation*>);
+	void renderOnHitAnim(sf::RenderTarget& target);
+
 	const sf::FloatRect getBounds() const;
-
-
-
-
-
 };
 

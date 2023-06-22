@@ -40,15 +40,20 @@ public:
 	//Background
 	void initBackground();
 
+	//Actions
 	void action();
 	void showLeaders();
 
+	//DB
+	void showDB();
+
+	//Menu
+	bool comeback();
+	bool backToMenu;
+
+	//Update/Render
 	void update();
 	void render();
 
-	void showDB();
-
-	bool comeback();
-	bool backToMenu;
 };
 

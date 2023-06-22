@@ -57,9 +57,9 @@ public:
 	void createScoreFile();
 
 	//Leaderboard
-	
 	void setDecision(int);
 	
+	//Update/Render
 	void update();
 	void render();
 

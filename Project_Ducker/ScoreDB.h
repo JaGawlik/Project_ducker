@@ -22,11 +22,10 @@ public:
 	ScoreDB();
 	~ScoreDB();
 
-	//void checkDB();
-
 	std::string checkName(std::string);
 	std::string checkPoints(std::string);
 
+	//AddToDB
 	void addScore(Score);
 	
 	const std::vector<Score> getVector() const;

@@ -27,7 +27,7 @@ void Game::initVariables()
 	this->clear = false;
 	this->deleteLetter = false;
 	this->pointsForHit = 3;
-	this->gameTime = 5;
+	this->gameTime = 25;
 	this->counter = 0;
 }
 

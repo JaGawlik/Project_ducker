@@ -69,7 +69,6 @@ void ScoreDB::loadDB()
 				{
 				case true:
 
-					//scoreboardName = part1;
 
 					scoreboardName = this->checkName(part1);
 
@@ -79,9 +78,6 @@ void ScoreDB::loadDB()
 
 				case false:
 					
-					/*this->checkPoints(part1);
-
-					value = */
 
 					scoreboardPoints = stoi(this->checkPoints(part1));
 					nameScore = true;
