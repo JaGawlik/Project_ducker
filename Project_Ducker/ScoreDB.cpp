@@ -11,6 +11,35 @@ ScoreDB::~ScoreDB()
 	this->saveDB();
 }
 
+//void ScoreDB::checkDB()
+//{
+//	std::regex nameCheck("[a-zA-Z]{1,5}");
+//	std::regex pointsCheck("[0-9]{1,3}");
+//
+//	std::regex eraseFromName("[0-9]");
+//	std::regex eraseFromPoints("[a-zA-Z]");
+//
+//
+//	if (!std::regex_match(scoreboardName, nameCheck) || std::regex_match(regexPoints, pointsCheck))
+//	{
+//		if (!std::regex_match(scoreboardName, nameCheck))
+//		{
+//			std::regex_replace(scoreboardName, eraseFromName, "");
+//		}
+//
+//		else if (!std::regex_match(regexPoints, pointsCheck))
+//		{
+//			std::regex_replace(regexPoints, eraseFromPoints, "");
+//		}
+//
+//		else if (!std::regex_match(scoreboardName, nameCheck) && std::regex_match(regexPoints, pointsCheck))
+//		{
+//			std::regex_replace(scoreboardName, eraseFromName, "");
+//			std::regex_replace(regexPoints, eraseFromPoints, "");
+//		}
+//	}
+//}
+
 void ScoreDB::loadDB()
 {
 	std::ifstream file("Scoreboard/records.txt");
@@ -30,6 +59,7 @@ void ScoreDB::loadDB()
 			bool nameScore = true; // true name // false score
 
 			std::string scoreboardName;
+			std::string regexPoints;
 			int scoreboardPoints;
 
 			while (std::getline(part11, part1, '/'))
@@ -39,20 +69,27 @@ void ScoreDB::loadDB()
 				{
 				case true:
 
-					scoreboardName = part1;
+					//scoreboardName = part1;
+
+					scoreboardName = this->checkName(part1);
+
 					nameScore = false;
 
 					break;
 
 				case false:
-					scoreboardPoints = stoi(part1);
+					
+					/*this->checkPoints(part1);
+
+					value = */
+
+					scoreboardPoints = stoi(this->checkPoints(part1));
 					nameScore = true;
 					break;
 				}
 			}
 
 			Score sc(scoreboardName, scoreboardPoints);
-
 			this->scoreVector.push_back(sc);
 
 			std::sort(this->scoreVector.begin(), this->scoreVector.end(), std::greater<Score>());
@@ -85,6 +122,46 @@ void ScoreDB::saveDB()
 	}
 
 	file.close();
+}
+
+
+std::string ScoreDB::checkName(std::string toCheck)
+{
+	std::smatch match;
+
+	std::regex nameCheck("[a-zA-Z]{1,5}");
+
+	std::regex eraseFromName("[0-9]");
+
+	if (std::regex_search(toCheck, match, nameCheck))
+	{
+		return match[0];
+	}
+
+	else
+	{
+		return "xxxxx";
+	}
+
+}
+
+std::string ScoreDB::checkPoints(std::string toCheck)
+{
+	std::smatch match;
+
+	std::regex pointsCheck("[0-9]{1,3}");
+
+	std::regex eraseFromPoints("[a-zA-Z]");
+
+	if (std::regex_search(toCheck, match, pointsCheck))
+	{
+		return match[0];
+	}
+
+	else
+	{
+		return "000";
+	}
 }
 
 void ScoreDB::addScore(Score sc)

@@ -6,6 +6,8 @@
 #include <iostream>
 #include <algorithm>
 
+#include <regex>
+
 #include "Score.h"
 
 class ScoreDB
@@ -19,6 +21,11 @@ public:
 
 	ScoreDB();
 	~ScoreDB();
+
+	//void checkDB();
+
+	std::string checkName(std::string);
+	std::string checkPoints(std::string);
 
 	void addScore(Score);
 	

@@ -50,13 +50,8 @@ void MainMenu::menuMngr()
 	this->menuVector.push_back(scText);
 
 
-	sf::Text optionsText("Option", menuFont, 50);
-	optionsText.setPosition(300.f, 300.f);
-	this->menuVector.push_back(optionsText);
-
-
 	sf::Text exitText("Exit", menuFont, 50);
-	exitText.setPosition(300.f, 350.f);
+	exitText.setPosition(300.f, 300.f);
 	this->menuVector.push_back(exitText);
 
 	sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
@@ -76,12 +71,6 @@ void MainMenu::menuMngr()
 			this->hoverSprite.setPosition(scText.getGlobalBounds().left - 10.f, scText.getGlobalBounds().top - 50.f);
 		}
 
-		if (optionsText.getGlobalBounds().contains(mousePos2f))
-		{
-			this->hoverText = true;
-			this->hoverSprite.setPosition(optionsText.getGlobalBounds().left - 10.f, optionsText.getGlobalBounds().top - 50.f);
-		}
-
 		if (exitText.getGlobalBounds().contains(mousePos2f))
 		{
 			this->hoverText = true;
@@ -91,7 +80,7 @@ void MainMenu::menuMngr()
 
 	while (this->window->pollEvent(this->choice))
 	{
-		if (this->choice.type == sf::Event::Closed /*|| this->choice.key.code == sf::Keyboard::Escape*/)
+		if (this->choice.type == sf::Event::Closed)
 		{
 			this->window->close();
 		}
@@ -113,11 +102,6 @@ void MainMenu::menuMngr()
 					this->deci = 2;
 				}
 
-				else if (optionsText.getGlobalBounds().contains(mousePos2f))
-				{
-					std::cout << "Wybrano opcje";
-				}
-
 				else if (exitText.getGlobalBounds().contains(mousePos2f))
 				{
 					std::cout << "Wybrano exit";
@@ -127,8 +111,6 @@ void MainMenu::menuMngr()
 		}
 	}
 }
-
-
 
 void MainMenu::initBackground()
 {
@@ -181,7 +163,11 @@ void MainMenu::createScoreFile()
 	if (!std::filesystem::exists("Scoreboard"))
 	{
 		std::filesystem::create_directory("Scoreboard/");
-		std::ofstream file("Scoreboard/records.txt");
+
+		std::filesystem::path source = "Template/recordsTemplate.txt";
+		std::filesystem::path destination = "Scoreboard/records.txt";
+
+		std::filesystem::copy(source, destination, std::filesystem::copy_options::overwrite_existing);
 	}
 }
 

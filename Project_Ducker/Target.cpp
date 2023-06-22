@@ -15,7 +15,7 @@ Target::Target(sf::Vector2f vMode)
 	this->initAnimation();
 	
 	this->spawnTarget();
-	this->speed = 1.f;
+	this->speed = 1.2f;
 }
 
 Target::~Target()
@@ -78,7 +78,7 @@ void Target::updateMovement()
 
 void Target::updateAnimation()
 {
-	if (this->animationTimer.getElapsedTime().asMilliseconds()>= 150.f * this->speed)
+	if (this->animationTimer.getElapsedTime().asMilliseconds()>= 150.f / this->speed)
 	{
 		this->currentFrame.left += 160.f;
 		if (this->currentFrame.left >= 1120.f)

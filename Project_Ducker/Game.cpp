@@ -27,7 +27,7 @@ void Game::initVariables()
 	this->clear = false;
 	this->deleteLetter = false;
 	this->pointsForHit = 3;
-	this->gameTime = 1;
+	this->gameTime = 5;
 	this->counter = 0;
 }
 
@@ -313,7 +313,6 @@ void Game::pollEvents()
 					this->backToMenu = true;
 				}
 			}
-			
 
 				if (this->event.key.code == sf::Keyboard::Backspace)
 				{
@@ -331,12 +330,9 @@ void Game::pollEvents()
 					ssKeyboardWord << pop;
 
 					break;
-				}
-
-				
+				}	
 		}
 	}
-
 }
 
 void Game::updateMousePos()
